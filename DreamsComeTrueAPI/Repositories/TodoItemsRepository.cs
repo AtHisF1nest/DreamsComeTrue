@@ -9,16 +9,16 @@ namespace DreamsComeTrueAPI.Repositories
 {
     public class TodoItemsRepository : ITodoItemsRepository
     {
-        private readonly DataContext context;
+        private readonly DataContext _context;
         public TodoItemsRepository(DataContext context)
         {
-            this.context = context;
+            _context = context;
 
         }
 
         public async Task<IEnumerable<TodoItem>> GetTodoItems()
         {
-            return await context.TodoItems.ToListAsync();
+            return await _context.TodoItems.ToListAsync();
         }
     }
 }

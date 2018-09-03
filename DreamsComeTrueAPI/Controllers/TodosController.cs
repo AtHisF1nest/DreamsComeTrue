@@ -12,18 +12,17 @@ namespace DreamsComeTrueAPI.Controllers
     [ApiController]
     public class TodosController : ControllerBase
     {
-        private readonly ITodoItemsRepository todoItemsRepository;
+        private readonly ITodoItemsRepository _todoItemsRepository;
         public TodosController(ITodoItemsRepository todoItemsRepository)
         {
-            this.todoItemsRepository = todoItemsRepository;
+            _todoItemsRepository = todoItemsRepository;
 
         }
 
-        [HttpGet]
-        [Route("GetItems")]
+        [HttpGet("GetItems")]
         public async Task<IEnumerable<TodoItem>> GetItems()
         {
-            return await todoItemsRepository.GetTodoItems();
+            return await _todoItemsRepository.GetTodoItems();
         }
 
     }
