@@ -1,0 +1,15 @@
+
+    <form #registerForm="ngForm" (ngSubmit)="register()" class="form-signin">
+      <div class="center">
+        <img class="mb-4" src="../../assets/pictures/journey_together.PNG" alt="" width="35%" height="35%">
+      </div>
+        <h1 class="h3 mb-3 font-weight-normal">Proszę, zarejestruj się</h1>
+        <label for="inputLogin" class="sr-only">Nazwa użytkownika</label>
+        <input type="text" id="inputLogin" class="form-control" name="login" [(ngModel)]="model.login" placeholder="Login" required autofocus>
+        <label for="inputPassword" class="sr-only">Hasło</label>
+        <input type="password" id="inputPassword" class="form-control mt-2" name="password" [(ngModel)]="model.password" placeholder="Hasło" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj się</button>
+      </form>
+      <div class="mt-2">
+        <a class="btn-link" href="#" (click)="cancel()"><i class="fa fa-arrow-left"></i> Cofnij</a>
+      </div>
