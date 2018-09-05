@@ -3,7 +3,7 @@
       <h1>Co chcecie dzisiaj porobić?</h1>
       <p class="lead">Sprawdź co dzisiejszy dzień dla Was przygotował.. Lub dajcie się ponieść wyobraźni!</p>
       <div class="text-center">
-        <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">Zarejestruj się</button>
+        <button *ngIf="!loggedIn()" class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">Zarejestruj się</button>
         <button class="btn btn-info btn-lg">Dowiedz się więcej</button>
       </div>
     </div>
