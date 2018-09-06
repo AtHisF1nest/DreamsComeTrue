@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
-  <a class="navbar-brand" href="#">Dreams Come True</a>
+  <a class="navbar-brand" [routerLink]="['/strona-glowna']">Dreams Come True</a>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Do dzieła!</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/nasze-cele']" >Do dzieła!</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Przegląd</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/kalendarz']">Kalendarz</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Zarządzanie</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/zarzadzanie']">Zarządzanie</a>
       </li>
     </ul>
 
