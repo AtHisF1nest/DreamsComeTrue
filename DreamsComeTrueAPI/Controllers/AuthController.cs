@@ -32,7 +32,7 @@ namespace DreamsComeTrueAPI.Controllers
             userForRegisterDto.Login = userForRegisterDto.Login.ToLower();
 
             if (await _authRepository.UserExists(userForRegisterDto.Login))
-                return BadRequest("Login arleady exists");
+                return BadRequest("Taki login już istnieje.");
 
             var userToCreate = new User
             {

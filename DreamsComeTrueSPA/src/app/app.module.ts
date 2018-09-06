@@ -18,6 +18,7 @@ import { ManagementComponent } from './management/management.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { TodosService } from './_services/todos.service';
 
 @NgModule({
    declarations: [
@@ -40,7 +41,8 @@ import { AuthGuard } from './_guards/auth.guard';
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      TodosService
    ],
    bootstrap: [
       AppComponent

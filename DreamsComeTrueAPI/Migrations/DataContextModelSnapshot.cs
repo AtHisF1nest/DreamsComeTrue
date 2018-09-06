@@ -16,6 +16,23 @@ namespace DreamsComeTrueAPI.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.2-rtm-30932");
 
+            modelBuilder.Entity("DreamsComeTrueAPI.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("DreamsComeTrueAPI.Models.TodoItem", b =>
                 {
                     b.Property<int>("Id")
@@ -50,6 +67,14 @@ namespace DreamsComeTrueAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("DreamsComeTrueAPI.Models.Photo", b =>
+                {
+                    b.HasOne("DreamsComeTrueAPI.Models.User", "User")
+                        .WithOne("Photo")
+                        .HasForeignKey("DreamsComeTrueAPI.Models.Photo", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.TodoItem", b =>

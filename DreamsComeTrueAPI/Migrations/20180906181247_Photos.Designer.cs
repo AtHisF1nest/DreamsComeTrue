@@ -9,14 +9,31 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DreamsComeTrueAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180903180941_Initial")]
-    partial class Initial
+    [Migration("20180906181247_Photos")]
+    partial class Photos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.2-rtm-30932");
+
+            modelBuilder.Entity("DreamsComeTrueAPI.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Photos");
+                });
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.TodoItem", b =>
                 {
@@ -52,6 +69,14 @@ namespace DreamsComeTrueAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("DreamsComeTrueAPI.Models.Photo", b =>
+                {
+                    b.HasOne("DreamsComeTrueAPI.Models.User", "User")
+                        .WithOne("Photo")
+                        .HasForeignKey("DreamsComeTrueAPI.Models.Photo", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.TodoItem", b =>

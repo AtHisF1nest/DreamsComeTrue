@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using DreamsComeTrueAPI.Models;
 using DreamsComeTrueAPI.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DreamsComeTrueAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TodosController : ControllerBase
