@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DreamsComeTrueAPI.Repositories
 {
-    public class TodoItemsRepository : ITodoItemsRepository
+    public class TodoRepository : ITodoRepository
     {
         private readonly DataContext _context;
-        public TodoItemsRepository(DataContext context)
+        public TodoRepository(DataContext context)
         {
             _context = context;
 
@@ -18,7 +18,13 @@ namespace DreamsComeTrueAPI.Repositories
 
         public async Task<IEnumerable<TodoItem>> GetTodoItems()
         {
-            return await _context.TodoItems.ToListAsync();
+            return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).ToListAsync();
         }
+
+        public async Task<IEnumerable<Category>> GetCategories()
+        {
+            return await _context.Categories.Include(x => x.Author).Include(x => x.CategoryType).ToListAsync();
+        }
+
     }
 }

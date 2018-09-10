@@ -44,7 +44,7 @@ namespace DreamsComeTrueAPI
                 });
             services.AddCors();
             services.AddAutoMapper();
-            services.AddScoped<ITodoItemsRepository, TodoItemsRepository>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDCTRepository, DCTRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

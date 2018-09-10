@@ -19,6 +19,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { TodosService } from './_services/todos.service';
+import { UserService } from './_services/user.service';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
    declarations: [
@@ -28,7 +30,8 @@ import { TodosService } from './_services/todos.service';
       RegisterComponent,
       TodoListComponent,
       ManagementComponent,
-      CalendarComponent
+      CalendarComponent,
+      CategoriesComponent
    ],
    imports: [
       BrowserModule,
@@ -42,7 +45,8 @@ import { TodosService } from './_services/todos.service';
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
-      TodosService
+      TodosService,
+      UserService
    ],
    bootstrap: [
       AppComponent

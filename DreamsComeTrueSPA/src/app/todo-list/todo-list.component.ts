@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodosService } from '../_services/todos.service';
+import { Todo } from '../_models/todo';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -8,17 +10,20 @@ import { TodosService } from '../_services/todos.service';
 })
 export class TodoListComponent implements OnInit {
 
-  todoList: any;
+  todoList: Todo[];
 
-  constructor(private todosService: TodosService) { }
+  constructor(private todosService: TodosService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    // this.getItems();
+    this.loadItems();
   }
 
-  getItems() {
-    this.todoList = this.todosService.getItems();
-    console.log(this.todoList);
+  loadItems() {
+    this.todosService.getItems().subscribe((todos: Todo[]) => {
+      this.todoList = todos;
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
 }
