@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 namespace DreamsComeTrueAPI.Repositories.Interfaces
 {
-    public interface ITodoItemsRepository
+    public interface ITodoRepository
     {
          Task<IEnumerable<TodoItem>> GetTodoItems();
+         Task<IEnumerable<Category>> GetCategories();
     }
 }

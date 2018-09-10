@@ -20,6 +20,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { TodosService } from './_services/todos.service';
+import { UserService } from './_services/user.service';
+import { CategoriesComponent } from './categories/categories.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -33,7 +35,8 @@ export function tokenGetter() {
       RegisterComponent,
       TodoListComponent,
       ManagementComponent,
-      CalendarComponent
+      CalendarComponent,
+      CategoriesComponent
    ],
    imports: [
       BrowserModule,
@@ -54,7 +57,8 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
-      TodosService
+      TodosService,
+      UserService
    ],
    bootstrap: [
       AppComponent
