@@ -1,0 +1,11 @@
+li.header-element {
+    background-color: #2b2b2b;
+    color: white;
+}
+
+li.header-element i {
+    margin-right: 10px;
+}
+li.header-element {
+    cursor: default;
+}

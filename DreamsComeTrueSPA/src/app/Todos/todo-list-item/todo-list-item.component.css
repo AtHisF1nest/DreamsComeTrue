@@ -1,15 +1,15 @@
-.todo-list li:hover {
+li:hover {
     cursor: pointer;
     background-color: rgba(129, 128, 128, 0.13);
 
 }
 
-.todo-list li {
+li {
     font-size: 1.1rem;
     transition: all .5s;
 }
 
-.todo-list .profile-info {
+.profile-info {
     display: block;
 
     font-size: 1rem;
@@ -18,18 +18,7 @@
     color: #ff6732;
 }
 
-.todo-list li.header-element {
-    background-color: #2b2b2b;
-    color: white;
-}
 
-.todo-list li.header-element i {
-    margin-right: 10px;
-}
-
-.todo-list li.header-element {
-    cursor: default;
-}
 
 .profile-avatar {
     width: 100px;
@@ -40,6 +29,6 @@
     box-shadow: 5px 7px 17px -3px rgba(0, 0, 0, .7);
 }
 
-.todo-list .cost {
+.cost {
     font-style: italic;
 }

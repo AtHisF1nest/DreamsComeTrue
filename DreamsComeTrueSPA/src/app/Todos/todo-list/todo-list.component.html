@@ -19,11 +19,7 @@
                     <div class="col-lg-2 col-sm-3"><span><i class="fa fa-hourglass"></i> Czas trwania</span></div>
                     <div class="col-lg-8 col-sm-7"><span><i class="fa fa-check"></i> Nasz cel</span></div>
                 </li>
-                <li *ngFor="let item of todoList" class="list-group-item d-flex justify-content-between align-items-center mt-2 row">
-                    <div class="col-lg-2 col-sm-2"><span class="profile-info">{{ item.author.name | titlecase }}</span><span><img class="profile-avatar" src="{{ item.author.photoUrl }}" /></span></div>
-                    <div class="col-lg-2 col-sm-3"><span class="cost">{{ item.cost }} godziny</span></div>
-                    <div class="col-lg-8 col-sm-7"><span class="objective">{{ item.objective }}</span></div>
-                </li>
+                <app-todo-list-item *ngFor="let todoItem of todoList" [item]="todoItem"></app-todo-list-item>
           </ul>
     </div>
       

@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoListComponent } from './Todos/todo-list/todo-list.component';
 import { ManagementComponent } from './management/management.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { appRoutes } from './routes';
@@ -22,6 +22,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { TodosService } from './_services/todos.service';
 import { UserService } from './_services/user.service';
 import { CategoriesComponent } from './categories/categories.component';
+import { TodoListItemComponent } from './Todos/todo-list-item/todo-list-item.component';
+import { TodoListDetailComponent } from './Todos/todo-list-detail/todo-list-detail.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -36,7 +38,9 @@ export function tokenGetter() {
       TodoListComponent,
       ManagementComponent,
       CalendarComponent,
-      CategoriesComponent
+      CategoriesComponent,
+      TodoListItemComponent,
+      TodoListDetailComponent
    ],
    imports: [
       BrowserModule,
