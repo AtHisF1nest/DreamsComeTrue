@@ -2,11 +2,11 @@ using DreamsComeTrueAPI.Models.Enums;
 
 namespace DreamsComeTrueAPI.Models
 {
-    public class UserConnection
+    public class UsersPair
     {
         public int Id { get; set; }
-        public User UserA { get; set; }
-        public User UserB { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User2 { get; set; }
         public RelationshipType RelationshipType { get; set; }
     }
 }

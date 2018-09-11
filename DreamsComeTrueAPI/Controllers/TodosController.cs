@@ -44,9 +44,6 @@ namespace DreamsComeTrueAPI.Controllers
         {
             var todoItem = await _todoRepository.GetTodoItem(id);
 
-            if (todoItem.Author.Name != HttpContext.User.Identity.Name && !await _dCTRepository.AreConnected(todoItem.Author.Login, HttpContext.User.Identity.Name))
-                return null;
-
             var res = _mapper.Map<TodoItemDto>(todoItem);
 
             return res;

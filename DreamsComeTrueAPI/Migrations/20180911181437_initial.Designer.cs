@@ -3,25 +3,29 @@ using System;
 using DreamsComeTrueAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DreamsComeTrueAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180911172445_UserConnections")]
-    partial class UserConnections
+    [Migration("20180911181437_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932");
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.Category", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("AuthorId");
 
@@ -33,11 +37,15 @@ namespace DreamsComeTrueAPI.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("UsersPairId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("CategoryTypeId");
+
+                    b.HasIndex("UsersPairId");
 
                     b.ToTable("Categories");
                 });
@@ -45,7 +53,8 @@ namespace DreamsComeTrueAPI.Migrations
             modelBuilder.Entity("DreamsComeTrueAPI.Models.CategoryTodoItemBinding", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CategoryId");
 
@@ -63,7 +72,8 @@ namespace DreamsComeTrueAPI.Migrations
             modelBuilder.Entity("DreamsComeTrueAPI.Models.CategoryType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
@@ -75,7 +85,8 @@ namespace DreamsComeTrueAPI.Migrations
             modelBuilder.Entity("DreamsComeTrueAPI.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Url");
 
@@ -92,7 +103,8 @@ namespace DreamsComeTrueAPI.Migrations
             modelBuilder.Entity("DreamsComeTrueAPI.Models.TodoItem", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("AuthorId");
 
@@ -100,9 +112,13 @@ namespace DreamsComeTrueAPI.Migrations
 
                     b.Property<string>("Objective");
 
+                    b.Property<int>("UsersPairId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("UsersPairId");
 
                     b.ToTable("TodoItems");
                 });
@@ -110,7 +126,8 @@ namespace DreamsComeTrueAPI.Migrations
             modelBuilder.Entity("DreamsComeTrueAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Login");
 
@@ -125,24 +142,25 @@ namespace DreamsComeTrueAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DreamsComeTrueAPI.Models.UserConnection", b =>
+            modelBuilder.Entity("DreamsComeTrueAPI.Models.UsersPair", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("RelationshipType");
 
-                    b.Property<int?>("UserAId");
+                    b.Property<int?>("User2Id");
 
-                    b.Property<int?>("UserBId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserAId");
+                    b.HasIndex("User2Id");
 
-                    b.HasIndex("UserBId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("UserConnections");
+                    b.ToTable("UsersPairs");
                 });
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.Category", b =>
@@ -154,6 +172,11 @@ namespace DreamsComeTrueAPI.Migrations
                     b.HasOne("DreamsComeTrueAPI.Models.CategoryType", "CategoryType")
                         .WithMany()
                         .HasForeignKey("CategoryTypeId");
+
+                    b.HasOne("DreamsComeTrueAPI.Models.UsersPair", "UsersPair")
+                        .WithMany()
+                        .HasForeignKey("UsersPairId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.CategoryTodoItemBinding", b =>
@@ -180,17 +203,22 @@ namespace DreamsComeTrueAPI.Migrations
                     b.HasOne("DreamsComeTrueAPI.Models.User", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
+
+                    b.HasOne("DreamsComeTrueAPI.Models.UsersPair", "UsersPair")
+                        .WithMany()
+                        .HasForeignKey("UsersPairId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DreamsComeTrueAPI.Models.UserConnection", b =>
+            modelBuilder.Entity("DreamsComeTrueAPI.Models.UsersPair", b =>
                 {
-                    b.HasOne("DreamsComeTrueAPI.Models.User", "UserA")
+                    b.HasOne("DreamsComeTrueAPI.Models.User", "User2")
                         .WithMany()
-                        .HasForeignKey("UserAId");
+                        .HasForeignKey("User2Id");
 
-                    b.HasOne("DreamsComeTrueAPI.Models.User", "UserB")
+                    b.HasOne("DreamsComeTrueAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserBId");
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

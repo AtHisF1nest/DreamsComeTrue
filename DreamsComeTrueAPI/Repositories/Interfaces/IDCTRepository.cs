@@ -11,6 +11,5 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<bool> SaveAll();
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
-         Task<bool> AreConnected(string login, string comparedWith);
     }
 }
