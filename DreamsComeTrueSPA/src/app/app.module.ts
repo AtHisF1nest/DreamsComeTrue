@@ -24,6 +24,8 @@ import { UserService } from './_services/user.service';
 import { CategoriesComponent } from './categories/categories.component';
 import { TodoListItemComponent } from './Todos/todo-list-item/todo-list-item.component';
 import { TodoListDetailComponent } from './Todos/todo-list-detail/todo-list-detail.component';
+import { TodoListDetailResolver } from './_resolvers/todo-list-detail.resolver';
+import { InformationComponent } from './information/information.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -40,7 +42,8 @@ export function tokenGetter() {
       CalendarComponent,
       CategoriesComponent,
       TodoListItemComponent,
-      TodoListDetailComponent
+      TodoListDetailComponent,
+      InformationComponent
    ],
    imports: [
       BrowserModule,
@@ -62,7 +65,8 @@ export function tokenGetter() {
       AlertifyService,
       AuthGuard,
       TodosService,
-      UserService
+      UserService,
+      TodoListDetailResolver
    ],
    bootstrap: [
       AppComponent

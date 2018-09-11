@@ -5,6 +5,9 @@ import { TodoListItemComponent } from './Todos/todo-list-item/todo-list-item.com
 import { ManagementComponent } from './management/management.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { TodoListDetailComponent } from './Todos/todo-list-detail/todo-list-detail.component';
+import { TodoListDetailResolver } from './_resolvers/todo-list-detail.resolver';
+import { InformationComponent } from './information/information.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -14,10 +17,12 @@ export const appRoutes: Routes = [
       canActivate: [AuthGuard],
       children: [
         { path: 'nasze-cele', component: TodoListComponent },
-        { path: 'nasze-cele/:id', component: TodoListItemComponent },
+        { path: 'nasze-cele/:id', component: TodoListDetailComponent,
+            resolve: {todoItem: TodoListDetailResolver} },
         { path: 'zarzadzanie', component: ManagementComponent },
         { path: 'kalendarz', component: CalendarComponent }
       ]
     },
+    { path: 'dowiedz-sie-wiecej', component: InformationComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

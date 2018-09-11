@@ -16,7 +16,11 @@ export class TodosService {
   constructor(private http: HttpClient) { }
 
   getItems(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.baseUrl + 'GetItems');
+    return this.http.get<Todo[]>(this.baseUrl);
+  }
+
+  getItem(id): Observable<Todo> {
+    return this.http.get<Todo>(this.baseUrl + id);
   }
 
   getCategories(): Observable<Category[]> {

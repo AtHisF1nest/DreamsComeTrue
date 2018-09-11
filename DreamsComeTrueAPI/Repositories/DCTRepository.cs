@@ -21,6 +21,12 @@ namespace DreamsComeTrueAPI.Repositories
             _context.Add(entity);
         }
 
+        public async Task<bool> AreConnected(string login, string comparedWith)
+        {
+            return await _context.UserConnections.Include(x => x.UserA).Include(x => x.UserB)
+                .AnyAsync(x => (x.UserA.Login == login && x.UserB.Login == comparedWith) || (x.UserB.Login == login && x.UserA.Login == comparedWith));
+        }
+
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);

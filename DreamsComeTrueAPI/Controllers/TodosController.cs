@@ -7,6 +7,7 @@ using DreamsComeTrueAPI.Dtos;
 using DreamsComeTrueAPI.Models;
 using DreamsComeTrueAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DreamsComeTrueAPI.Controllers
@@ -18,19 +19,35 @@ namespace DreamsComeTrueAPI.Controllers
     {
         private readonly ITodoRepository _todoRepository;
         private readonly IMapper _mapper;
+        private readonly IDCTRepository _dCTRepository;
 
-        public TodosController(ITodoRepository todoRepository, IMapper mapper)
+        public TodosController(ITodoRepository todoRepository, IMapper mapper, IDCTRepository dCTRepository)
         {
+            _dCTRepository = dCTRepository;
             _todoRepository = todoRepository;
             _mapper = mapper;
+
         }
 
-        [HttpGet("GetItems")]
+        [HttpGet]
         public async Task<IEnumerable<TodoItemDto>> GetItems()
         {
             var todoItems = await _todoRepository.GetTodoItems();
 
             var res = _mapper.Map<IEnumerable<TodoItemDto>>(todoItems);
+
+            return res;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<TodoItemDto> GetItem(int id)
+        {
+            var todoItem = await _todoRepository.GetTodoItem(id);
+
+            if (todoItem.Author.Name != HttpContext.User.Identity.Name && !await _dCTRepository.AreConnected(todoItem.Author.Login, HttpContext.User.Identity.Name))
+                return null;
+
+            var res = _mapper.Map<TodoItemDto>(todoItem);
 
             return res;
         }
