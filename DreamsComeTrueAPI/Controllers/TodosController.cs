@@ -19,7 +19,7 @@ namespace DreamsComeTrueAPI.Controllers
     {
         private readonly ITodoRepository _todoRepository;
         private readonly IMapper _mapper;
-        private readonly string _actualUserLogin;
+        private string _actualUserLogin;
         private readonly IDCTRepository _dCTRepository;
 
         public TodosController(ITodoRepository todoRepository, IMapper mapper, IDCTRepository dCTRepository)
@@ -27,8 +27,6 @@ namespace DreamsComeTrueAPI.Controllers
             _dCTRepository = dCTRepository;
             _todoRepository = todoRepository;
             _mapper = mapper;
-            _actualUserLogin = HttpContext.User.Identity.Name;
-
         }
 
         [HttpGet]
@@ -44,9 +42,11 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpGet("{id}")]
         public async Task<TodoItemDto> GetItem(int id)
         {
+            _actualUserLogin = HttpContext.User.Identity.Name;
+
             var todoItem = await _todoRepository.GetTodoItem(id);
 
-            if(todoItem.UsersPair.User.Name != _actualUserLogin && todoItem.UsersPair.User2.Name != _actualUserLogin)
+            if(todoItem.UsersPair.User?.Login != _actualUserLogin && todoItem.UsersPair.User2?.Login != _actualUserLogin)
                 return null;
 
             var res = _mapper.Map<TodoItemDto>(todoItem);

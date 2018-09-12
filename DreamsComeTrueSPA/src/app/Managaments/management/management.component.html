@@ -1,0 +1,17 @@
+<div class="container mt-5">
+  <div class="main-content">
+  <div class="row">
+    <div *ngFor="let item of managementTypes" class="col-lg-3 card-block">
+      <div class="card" style="width: 18rem;" [routerLink]="item.url" >
+        <img class="card-img-top" src="{{item.photoUrl}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.description}}</p>
+          <a [routerLink]="[item.url]" class="btn btn-{{item.theme}}">{{item.buttonText}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

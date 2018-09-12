@@ -15,7 +15,7 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { TodoListComponent } from './Todos/todo-list/todo-list.component';
-import { ManagementComponent } from './management/management.component';
+import { ManagementComponent } from './Managaments/management/management.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
@@ -26,6 +26,13 @@ import { TodoListItemComponent } from './Todos/todo-list-item/todo-list-item.com
 import { TodoListDetailComponent } from './Todos/todo-list-detail/todo-list-detail.component';
 import { TodoListDetailResolver } from './_resolvers/todo-list-detail.resolver';
 import { InformationComponent } from './information/information.component';
+import { TodoListResolver } from './_resolvers/todo-list.resolver';
+import { ManagementService } from './_services/management.service';
+import { ManagementResolver } from './_resolvers/management.resolver';
+import { ManagementCategoriesResolver } from './_resolvers/management-categories.resolver';
+import { ManagementTodosResolver } from './_resolvers/management-todos.resolver';
+import { ManagementCategoriesComponent } from './Managaments/management-categories/management-categories.component';
+import { ManagementTodosComponent } from './Managaments/management-todos/management-todos.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -43,7 +50,9 @@ export function tokenGetter() {
       CategoriesComponent,
       TodoListItemComponent,
       TodoListDetailComponent,
-      InformationComponent
+      InformationComponent,
+      ManagementCategoriesComponent,
+      ManagementTodosComponent
    ],
    imports: [
       BrowserModule,
@@ -66,7 +75,12 @@ export function tokenGetter() {
       AuthGuard,
       TodosService,
       UserService,
-      TodoListDetailResolver
+      TodoListDetailResolver,
+      TodoListResolver,
+      ManagementService,
+      ManagementResolver,
+      ManagementCategoriesResolver,
+      ManagementTodosResolver
    ],
    bootstrap: [
       AppComponent

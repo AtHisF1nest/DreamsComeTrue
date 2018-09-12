@@ -24,10 +24,22 @@ export class CategoriesComponent implements OnInit {
   loadCategories() {
     this.todosService.getCategories().subscribe(categories => {
       this.categories = categories;
-      console.log(categories);
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  anyCategoryActive() {
+    if (!this.categories) {
+      return false;
+    }
+    this.categories.forEach(element => {
+      if (element.active) {
+        return true;
+      }
+    });
+
+    return false;
   }
 
 }

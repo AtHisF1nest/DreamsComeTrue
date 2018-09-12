@@ -25,19 +25,20 @@ namespace DreamsComeTrueAPI.Repositories
 
         public async Task<IEnumerable<TodoItem>> GetTodoItems()
         {
-            return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo)
+            return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
                 .Where(x => x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
         }
 
         public async Task<TodoItem> GetTodoItem(int id)
         {
-            return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
+                .Include(x => x.UsersPair.User).Include(x => x.UsersPair.User2).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Category>> GetCategories()
         {
-            return await _context.Categories.Include(x => x.Author).Include(x => x.CategoryType)
+            return await _context.Categories.Include(x => x.Author).Include(x => x.CategoryType).Include(x => x.UsersPair)
                 .Where(x => x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
         }

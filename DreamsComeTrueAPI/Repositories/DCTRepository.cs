@@ -26,6 +26,13 @@ namespace DreamsComeTrueAPI.Repositories
             _context.Remove(entity);
         }
 
+        public async Task<IEnumerable<ManagementType>> GetManagementTypes()
+        {
+            var types = await _context.ManagementTypes.ToListAsync();
+
+            return types;
+        }
+
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.Include(x => x.Photo).FirstOrDefaultAsync(x => x.Id == id);
