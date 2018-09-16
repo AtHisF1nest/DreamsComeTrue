@@ -33,6 +33,7 @@ import { ManagementCategoriesResolver } from './_resolvers/management-categories
 import { ManagementTodosResolver } from './_resolvers/management-todos.resolver';
 import { ManagementCategoriesComponent } from './Managaments/management-categories/management-categories.component';
 import { ManagementTodosComponent } from './Managaments/management-todos/management-todos.component';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -52,7 +53,8 @@ export function tokenGetter() {
       TodoListDetailComponent,
       InformationComponent,
       ManagementCategoriesComponent,
-      ManagementTodosComponent
+      ManagementTodosComponent,
+      BreadcrumbsComponent
    ],
    imports: [
       BrowserModule,

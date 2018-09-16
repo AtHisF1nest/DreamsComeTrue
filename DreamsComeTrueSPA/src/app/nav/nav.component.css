@@ -3,5 +3,15 @@
 }
 
 .navbar {
-    background-color: #dc3545 !important;
+    background-color: #673ab7 !important;
+}
+
+.navbar i {
+    margin-left: 0.5rem;
+    color:white;
+    opacity: 0.8;
+}
+
+.navbar a:hover i {
+ opacity: 1;
 }

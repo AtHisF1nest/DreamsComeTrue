@@ -14,5 +14,6 @@ namespace DreamsComeTrueAPI.Data
         public DbSet<CategoryTodoItemBinding> CategoryTodoItemBindings { get; set; }
         public DbSet<UsersPair> UsersPairs { get; set; }
         public DbSet<ManagementType> ManagementTypes { get; set; }
+        public DbSet<History> Histories { get; set; }
     }
 }

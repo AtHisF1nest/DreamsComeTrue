@@ -4,14 +4,16 @@ using DreamsComeTrueAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DreamsComeTrueAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180913172124_categorytype")]
+    partial class categorytype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,23 +65,6 @@ namespace DreamsComeTrueAPI.Migrations
                     b.HasIndex("TodoItemId");
 
                     b.ToTable("CategoryTodoItemBindings");
-                });
-
-            modelBuilder.Entity("DreamsComeTrueAPI.Models.History", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Done");
-
-                    b.Property<int?>("TodoItemId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TodoItemId");
-
-                    b.ToTable("Histories");
                 });
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.ManagementType", b =>
@@ -135,9 +120,9 @@ namespace DreamsComeTrueAPI.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<DateTime?>("LastDone");
-
                     b.Property<string>("Objective");
+
+                    b.Property<int>("Status");
 
                     b.Property<int>("UsersPairId");
 
@@ -208,13 +193,6 @@ namespace DreamsComeTrueAPI.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("DreamsComeTrueAPI.Models.TodoItem", "TodoItem")
-                        .WithMany()
-                        .HasForeignKey("TodoItemId");
-                });
-
-            modelBuilder.Entity("DreamsComeTrueAPI.Models.History", b =>
-                {
                     b.HasOne("DreamsComeTrueAPI.Models.TodoItem", "TodoItem")
                         .WithMany()
                         .HasForeignKey("TodoItemId");

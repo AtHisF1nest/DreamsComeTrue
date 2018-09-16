@@ -20,3 +20,39 @@
 .mt-6 {
     margin-top: 5rem !important;
 }
+
+.category {
+
+    border-radius: 7px;
+    margin-right: 5px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(63, 81, 181);
+    color: white;
+    cursor: pointer;
+    opacity: .8;
+    transition: .5s all;
+    margin-bottom: 0.8rem;
+}
+
+.header-category {
+    background-color: white;
+    border: 1px solid rgb(63, 81, 181);
+    color: rgb(63, 81, 181);
+    padding-left: 0px;
+    padding-right: 0px;
+    max-width: 135px;
+}
+
+.category:hover, .category.active {
+    opacity: 1;
+}
+
+div.scrollable-y {
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+  body {
+      overflow-x: hidden !important;
+  }

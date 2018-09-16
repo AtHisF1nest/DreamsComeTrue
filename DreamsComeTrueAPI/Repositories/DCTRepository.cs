@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DreamsComeTrueAPI.Data;
 using DreamsComeTrueAPI.Models;
+using DreamsComeTrueAPI.Models.Enums;
 using DreamsComeTrueAPI.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace DreamsComeTrueAPI.Repositories
@@ -10,10 +13,15 @@ namespace DreamsComeTrueAPI.Repositories
     public class DCTRepository : IDCTRepository
     {
         private readonly DataContext _context;
-        public DCTRepository(DataContext context)
+        private readonly string _actualUserLogin;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public DCTRepository(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
 
+
+            _actualUserLogin = _httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
         public void Add<T>(T entity) where T : class
@@ -36,7 +44,7 @@ namespace DreamsComeTrueAPI.Repositories
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.Include(x => x.Photo).FirstOrDefaultAsync(x => x.Id == id);
-            
+
             return user;
         }
 

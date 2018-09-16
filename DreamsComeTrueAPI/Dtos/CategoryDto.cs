@@ -7,5 +7,7 @@ namespace DreamsComeTrueAPI.Dtos
         public string BackgroundColor { get; set; }
         public string Color { get; set; }
         public UserForPreviewDto Author { get; set; }
+        public string CategoryType { get; set; }
+        public int CategoryTypeId { get; set; }
     }
 }

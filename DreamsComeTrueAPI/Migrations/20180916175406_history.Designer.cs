@@ -4,14 +4,16 @@ using DreamsComeTrueAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DreamsComeTrueAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180916175406_history")]
+    partial class history
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +137,7 @@ namespace DreamsComeTrueAPI.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<DateTime?>("LastDone");
+                    b.Property<DateTime>("LastDone");
 
                     b.Property<string>("Objective");
 

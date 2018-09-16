@@ -9,5 +9,9 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<IEnumerable<TodoItem>> GetTodoItems();
          Task<TodoItem> GetTodoItem(int id);
          Task<IEnumerable<Category>> GetCategories();
+         Task<Category> AddCategory(Category category);
+         Task<bool> DeleteCategory(int id);
+         Task<TodoItem> AddTodoItem(TodoItem todoItem);
+         Task<bool> DeleteTodoItem(int id);
     }
 }

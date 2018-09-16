@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DreamsComeTrueAPI.Models.Enums;
 
 namespace DreamsComeTrueAPI.Models
 {

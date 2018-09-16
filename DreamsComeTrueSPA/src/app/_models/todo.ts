@@ -5,4 +5,6 @@ export interface Todo {
     objective: string;
     cost: number;
     author: User;
+    created: string;
+    status: string;
 }

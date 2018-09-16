@@ -10,7 +10,7 @@ namespace DreamsComeTrueAPI.Models
         public string Objective { get; set; }
         public int Cost { get; set; }
         public DateTime Created { get; set; }
-        public TodoItemStatus Status { get; set; }
+        public DateTime? LastDone { get; set; }
         public virtual User Author { get; set; }
         public virtual UsersPair UsersPair { get; set; }
         public int UsersPairId { get; set; }

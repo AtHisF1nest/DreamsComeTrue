@@ -1,0 +1,14 @@
+div.container {
+    padding-bottom: 4rem;
+    padding-top: 1rem;
+}
+
+.background-image { 
+    width: 1920px;
+    height: 1080px;
+    background: url(../../assets/pictures/wallpaper-6..jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
