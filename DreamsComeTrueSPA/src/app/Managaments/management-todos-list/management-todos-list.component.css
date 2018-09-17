@@ -1,0 +1,38 @@
+
+table tr:hover .actions span {
+    opacity: 1;
+}
+
+.actions span {
+    display: block;
+    margin: 0.5rem;
+    opacity: 0;
+    transition: .3s all;
+}
+
+.actions span i {
+    cursor: pointer;
+}
+
+.actions span i.blue {
+    color: rgb(19, 47, 168);
+}
+
+.actions span i.red {
+    color: rgb(151, 7, 7);
+}
+
+.thead-dark th {
+    background-color: #212529;
+    border-color: #32383e;
+}
+
+table .cost {
+    width: 3rem;
+    text-align: center;
+}
+
+.cost-dream {
+    width: 7rem;
+    text-align: left;
+}

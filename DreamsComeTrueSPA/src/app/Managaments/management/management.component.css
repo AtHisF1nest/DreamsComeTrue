@@ -2,6 +2,7 @@
     width: 288px;
     height: 415px;
     transition: .6s all;
+    margin-bottom: 2.5rem;
 }
 
 .card-block {
@@ -16,3 +17,4 @@
 .card:hover {
     border-color: rgb(255, 196, 0);
 }
+

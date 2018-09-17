@@ -34,6 +34,10 @@ import { ManagementTodosResolver } from './_resolvers/management-todos.resolver'
 import { ManagementCategoriesComponent } from './Managaments/management-categories/management-categories.component';
 import { ManagementTodosComponent } from './Managaments/management-todos/management-todos.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { ManagementConnectionsComponent } from './Managaments/management-connections/management-connections.component';
+import { ManagementDreamsComponent } from './Managaments/management-dreams/management-dreams.component';
+import { ManagementTodosListComponent } from './Managaments/management-todos-list/management-todos-list.component';
+import { ManagementDreamsResolver } from './_resolvers/management-dreams.resolver';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -54,7 +58,10 @@ export function tokenGetter() {
       InformationComponent,
       ManagementCategoriesComponent,
       ManagementTodosComponent,
-      BreadcrumbsComponent
+      BreadcrumbsComponent,
+      ManagementConnectionsComponent,
+      ManagementDreamsComponent,
+      ManagementTodosListComponent
    ],
    imports: [
       BrowserModule,
@@ -82,7 +89,8 @@ export function tokenGetter() {
       ManagementService,
       ManagementResolver,
       ManagementCategoriesResolver,
-      ManagementTodosResolver
+      ManagementTodosResolver,
+      ManagementDreamsResolver
    ],
    bootstrap: [
       AppComponent

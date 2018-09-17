@@ -19,6 +19,9 @@ namespace DreamsComeTrueAPI.Helpers
             CreateMap<TodoItem, TodoItemDto>()
                 .ForMember(dest => dest.Created, opt => {
                     opt.MapFrom(src => src.Created.ToShortDateString());
+                })
+                .ForMember(dest => dest.CategoryType, opt => {
+                    opt.MapFrom(src => src.CategoryType.GetDescription());
                 });
         }
     }

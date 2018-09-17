@@ -27,6 +27,14 @@ export class ManagementService {
     return this.http.delete(this.baseUrl + 'DeleteTodo/' + id);
   }
 
+  addDream(dreamModel: any) {
+    return this.http.post(this.baseUrl + 'AddDream', dreamModel);
+  }
+
+  deleteDream(id) {
+    return this.http.delete(this.baseUrl + 'DeleteDream/' + id);
+  }
+
   addCategory(categoryModel: Category) {
     return this.http.post(this.baseUrl + 'AddCategory', categoryModel);
   }

@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="jumbotron">
+              <h1 class="display-4">A to zarządzanie marzeniami..</h1>
+              <p class="lead">Jeżeli jest coś czego pragniecie tak bardzo, że jest to dla Was marzenie, to jesteście w dobrym miejscu!</p>
+              <hr class="my-4">
+              <form #addTodoForm="ngForm" (ngSubmit)="addDream()">
+                <div class="form-row ">
+                    <div class="form-group col-md-8">
+                        <label for="inputObjective">Marzenie</label>
+                        <textarea class="form-control" id="inputObjective" [(ngModel)]="dreamModel.objective" name="objective" placeholder="Treść, osiągniecie co zapragniecie!" rows="2"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-2">
+                          <label for="inputCost">Koszt</label>
+                          <input type="number" min="0" class="form-control" [(ngModel)]="dreamModel.cost" id="inputCost" name="cost" placeholder="400 zł">
+                      </div>
+                      <div class="form-group col-md-4">
+                          <input type="submit" id="inputSubmit" class="btn btn-success" value="Dodaj!">
+                      </div>
+                  </div>
+            </form>
+            </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-12">
+        <hr />
+      </div>
+    </div>
+    <app-management-todos-list [todoList]="dreamList" (deleteTodo)="deleteDream($event)" [options]="options"></app-management-todos-list>
+  
+  </div>
+  
+  <div class="row mt-10"><div class="col-mg-12"></div></div>

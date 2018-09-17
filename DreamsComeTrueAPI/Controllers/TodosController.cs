@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DreamsComeTrueAPI.Dtos;
 using DreamsComeTrueAPI.Models;
+using DreamsComeTrueAPI.Models.Enums;
 using DreamsComeTrueAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -58,6 +59,41 @@ namespace DreamsComeTrueAPI.Controllers
         public async Task<IEnumerable<CategoryDto>> GetCategories()
         {
             var categories = await _todoRepository.GetCategories();
+
+            var res = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+            return res;
+        }
+
+        [HttpGet("GetDreams")]
+        public async Task<IEnumerable<TodoItemDto>> GetDreams()
+        {
+            var todoItems = await _todoRepository.GetTodoItems(CategoryType.Marzenia);
+
+            var res = _mapper.Map<IEnumerable<TodoItemDto>>(todoItems);
+
+            return res;
+        }
+
+        [HttpGet("GetDream/{id}")]
+        public async Task<TodoItemDto> GetDream(int id)
+        {
+            _actualUserLogin = HttpContext.User.Identity.Name;
+
+            var todoItem = await _todoRepository.GetTodoItem(id, CategoryType.Marzenia);
+
+            if(todoItem.UsersPair.User?.Login != _actualUserLogin && todoItem.UsersPair.User2?.Login != _actualUserLogin)
+                return null;
+
+            var res = _mapper.Map<TodoItemDto>(todoItem);
+
+            return res;
+        }
+
+        [HttpGet("GetDreamsCategories")]
+        public async Task<IEnumerable<CategoryDto>> GetDreamsCategories()
+        {
+            var categories = await _todoRepository.GetCategories(CategoryType.Marzenia);
 
             var res = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 

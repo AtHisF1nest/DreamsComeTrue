@@ -7,7 +7,7 @@ namespace DreamsComeTrueAPI.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual CategoryType CategoryType { get; set; }
+        public virtual CategoryType CategoryType { get; set; } = CategoryType.NaDzis;
         public string BackgroundColor { get; set; }
         public string Color { get; set; }
         public virtual User Author { get; set; }

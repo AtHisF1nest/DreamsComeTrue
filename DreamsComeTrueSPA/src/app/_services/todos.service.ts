@@ -27,4 +27,16 @@ export class TodosService {
     return this.http.get<Category[]>(this.baseUrl + 'GetCategories');
   }
 
+  getDreams(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.baseUrl + 'GetDreams');
+  }
+
+  getDream(id): Observable<Todo> {
+    return this.http.get<Todo>(this.baseUrl + 'GetDream/' + id);
+  }
+
+  getDreamsCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.baseUrl + 'GetDreamsCategories');
+  }
+
 }

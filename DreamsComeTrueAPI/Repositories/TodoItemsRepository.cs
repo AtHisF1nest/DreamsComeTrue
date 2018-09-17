@@ -24,33 +24,34 @@ namespace DreamsComeTrueAPI.Repositories
             _actualUserLogin = _httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
-        public async Task<IEnumerable<TodoItem>> GetTodoItems()
+        public async Task<IEnumerable<TodoItem>> GetTodoItems(CategoryType type = CategoryType.NaDzis)
         {
             return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
-                .Where(x => x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                .Where(x => x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
         }
 
-        public async Task<TodoItem> GetTodoItem(int id)
+        public async Task<TodoItem> GetTodoItem(int id, CategoryType type = CategoryType.NaDzis)
         {
             return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
-                .Include(x => x.UsersPair.User).Include(x => x.UsersPair.User2).FirstOrDefaultAsync(x => x.Id == id);
+                .Include(x => x.UsersPair.User).Include(x => x.UsersPair.User2).FirstOrDefaultAsync(x => x.CategoryType == type && x.Id == id);
         }
 
-        public async Task<IEnumerable<Category>> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategories(CategoryType type = CategoryType.NaDzis)
         {
             return await _context.Categories.Include(x => x.Author).Include(x => x.UsersPair)
-                .Where(x => x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                .Where(x => x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
         }
 
-        public async Task<TodoItem> AddTodoItem(TodoItem todoItem)
+        public async Task<TodoItem> AddTodoItem(TodoItem todoItem, CategoryType type = CategoryType.NaDzis)
         {
             todoItem.Created = DateTime.Now;
             var actualUser = await _context.Users.FirstOrDefaultAsync(x => x.Login == _actualUserLogin);
             var actualPair = await _context.UsersPairs.FirstOrDefaultAsync(x => x.User == actualUser || x.User2 == actualUser);
             todoItem.Author = actualUser;
             todoItem.UsersPairId = actualPair.Id;
+            todoItem.CategoryType = type;
 
             await _context.TodoItems.AddAsync(todoItem);
             if(await _context.SaveChangesAsync() == 0)
@@ -66,12 +67,13 @@ namespace DreamsComeTrueAPI.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<Category> AddCategory(Category category)
+        public async Task<Category> AddCategory(Category category, CategoryType type = CategoryType.NaDzis)
         {
             var actualUser = await _context.Users.FirstOrDefaultAsync(x => x.Login == _actualUserLogin);
             var actualPair = await _context.UsersPairs.FirstOrDefaultAsync(x => x.User == actualUser || x.User2 == actualUser);
             category.Author = actualUser;
             category.UsersPairId = actualPair.Id;
+            category.CategoryType = type;
 
             await _context.Categories.AddAsync(category);
             if(await _context.SaveChangesAsync() > 0)

@@ -61,6 +61,30 @@ namespace DreamsComeTrueAPI.Controllers
             return Ok();
         }
 
+        [HttpPost("AddDream")]
+        public async Task<IActionResult> AddDream(TodoItemDto todoItemDto)
+        {
+            var item = new TodoItem 
+            {
+                Objective = todoItemDto.Objective,
+                Cost = todoItemDto.Cost
+            };
+
+            if(await _todoRepository.AddTodoItem(item, CategoryType.Marzenia) == null)
+                return BadRequest();
+
+            return StatusCode(201);
+        }
+
+        [HttpDelete("DeleteDream/{id}")]
+        public async Task<IActionResult> DeleteDream(int id)
+        {
+            if(!await _todoRepository.DeleteTodoItem(id))
+                return BadRequest();
+
+            return Ok();
+        }
+
         [HttpPost("AddCategory")]
         public async Task<IActionResult> AddCategory(CategoryDto categoryDto)
         {

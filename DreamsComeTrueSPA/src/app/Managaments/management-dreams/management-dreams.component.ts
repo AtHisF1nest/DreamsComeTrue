@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Todo } from '../../_models/todo';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ManagementService } from '../../_services/management.service';
 import { TodosService } from '../../_services/todos.service';
 
 @Component({
-  selector: 'app-management-todos',
-  templateUrl: './management-todos.component.html',
-  styleUrls: ['./management-todos.component.css']
+  selector: 'app-management-dreams',
+  templateUrl: './management-dreams.component.html',
+  styleUrls: ['./management-dreams.component.css']
 })
-export class ManagementTodosComponent implements OnInit {
+export class ManagementDreamsComponent implements OnInit {
 
-  todoList: Todo[];
+  dreamList: Todo[];
 
-  todoModel: any = {};
+  dreamModel: any = {};
 
   options: any = {
-    isDream: false,
-    cost: 'Czas trwania'
+    isDream: true,
+    cost: 'Koszt'
   };
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService,
@@ -26,39 +26,38 @@ export class ManagementTodosComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.todoList = data['todoList'];
-      if (!this.todoList) {
+      this.dreamList = data['dreamList'];
+      if (!this.dreamList) {
         this.alertify.error('Wystąpił problem podczas pobierania danych.');
         this.router.navigate(['/zarzadzanie']);
       }
     });
   }
 
-  addTodo() {
-    this.managementService.addTodo(this.todoModel).subscribe(() => {
-      this.alertify.success('Cel został dodany!');
-      this.todoModel = {};
-      this.loadItems();
+  addDream() {
+    this.managementService.addDream(this.dreamModel).subscribe(() => {
+      this.alertify.success('Marzenie zostało dodane!');
+      this.dreamModel = {};
+      this.loadDreams();
     }, error => {
       this.alertify.error(error);
     });
   }
 
-  deleteTodo(id) {
-    this.managementService.deleteTodo(id).subscribe(() => {
-      this.alertify.success('Cel został usunięty.');
-      this.loadItems();
+  deleteDream(id) {
+    this.managementService.deleteDream(id).subscribe(() => {
+      this.alertify.success('Marzenie zostało dodane!');
+      this.loadDreams();
     }, error => {
       this.alertify.error(error);
     });
   }
 
-  loadItems() {
-    this.todosService.getItems().subscribe(data => {
-      this.todoList = data;
+  loadDreams() {
+    this.todosService.getDreams().subscribe(data => {
+      this.dreamList = data;
     }, error => {
       this.alertify.error(error);
     });
   }
-
 }

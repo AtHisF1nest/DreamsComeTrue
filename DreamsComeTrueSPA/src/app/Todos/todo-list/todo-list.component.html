@@ -16,20 +16,21 @@
         <ul class="list-group todo-list">
                 <li class="list-group-item d-flex justify-content-between align-items-center mt-2 row header-element">
                     <div class="col-lg-2 col-sm-2"><span><i class="fa fa-user-circle"></i> Autor</span></div>
-                    <div class="col-lg-2 col-sm-3"><span><i class="fa fa-hourglass"></i> Czas trwania</span></div>
-                    <div class="col-lg-8 col-sm-7"><span><i class="fa fa-check"></i> Nasz cel</span></div>
+                    <div class="col-lg-1 col-sm-1"><span><i class="fa fa-hourglass"></i></span></div>
+                    <div class="col-lg-2 col-sm-2"><span><i class="fa fa-calendar"></i> Ostatnio</span></div>
+                    <div class="col-lg-7 col-sm-7"><span><i class="fa fa-check"></i> Nasz cel</span></div>
                 </li>
                 <app-todo-list-item *ngFor="let todoItem of todoList" [item]="todoItem"></app-todo-list-item>
           </ul>
     </div>
     <div *ngIf="!todoList || todoList.length == 0" class="card text-center offset-3 col-lg-6 mt-8">
       <div class="card-header">
-        Ile tylko się da!
+        Dodajcie ile tylko się da!
       </div>
       <div class="card-body">
         <h5 class="card-title">Wystarczy kilka kliknięć</h5>
         <p class="card-text">Połóżcie się razem, i dajcie się ponieść wyobraźni!</p>
-        <a [routerLink]="['/zarzadzanie-celami']" routerLinkActive="router-link-active"  class="btn btn-primary">Dodaj cele</a>
+        <a [routerLink]="['/zarzadzanie-celami']" routerLinkActive="router-link-active"  class="btn btn-primary">Przejdź do zarządzania</a>
       </div>
     </div>
 

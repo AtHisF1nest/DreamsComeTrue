@@ -14,6 +14,8 @@ import { ManagementCategoriesResolver } from './_resolvers/management-categories
 import { ManagementTodosResolver } from './_resolvers/management-todos.resolver';
 import { ManagementTodosComponent } from './Managaments/management-todos/management-todos.component';
 import { ManagementCategoriesComponent } from './Managaments/management-categories/management-categories.component';
+import { ManagementDreamsComponent } from './Managaments/management-dreams/management-dreams.component';
+import { ManagementDreamsResolver } from './_resolvers/management-dreams.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -32,6 +34,8 @@ export const appRoutes: Routes = [
             resolve: {todoList: ManagementTodosResolver} },
         { path: 'zarzadzanie-kategoriami', component: ManagementCategoriesComponent,
             resolve: {categoryList: ManagementCategoriesResolver} },
+        { path: 'zarzadzanie-marzeniami', component: ManagementDreamsComponent,
+            resolve: {dreamList: ManagementDreamsResolver} },
         { path: 'kalendarz', component: CalendarComponent }
       ]
     },

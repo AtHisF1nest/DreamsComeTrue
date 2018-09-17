@@ -1,0 +1,32 @@
+<div class="row mt-5">
+    <div class="col-lg-12">
+        <h1>A to Wasza historia, stara i nowa <span class="badge badge-secondary">{{todoList?.length}}</span></h1>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-12">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Autor</th>
+            <th scope="col">{{options.cost}}</th>
+            <th *ngIf="!options.isDream" scope="col">Stworzony</th>
+            <th *ngIf="!options.isDream" scope="col">Ostatnio</th>
+            <th scope="col">Treść</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of todoList">
+            <td>{{item.author.name | titlecase}}</td>
+            <td *ngIf="!options.isDream" class="cost">{{item.cost}} h</td>
+            <td *ngIf="options.isDream" class="cost-dream">{{item.cost}} zł</td>
+            <td *ngIf="!options.isDream" >{{item.created}}</td>
+            <td *ngIf="!options.isDream" >{{item.lastDone}}</td>
+            <td>{{item.objective}}</td>
+            <td class="actions"><span><i class="fa fa-edit blue"></i></span><span (click)="delete(item.id)"><i class="fa fa-times red"></i></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
