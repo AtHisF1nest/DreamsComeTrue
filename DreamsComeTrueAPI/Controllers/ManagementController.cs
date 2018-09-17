@@ -92,7 +92,6 @@ namespace DreamsComeTrueAPI.Controllers
             {
                 Color = categoryDto.Color,
                 BackgroundColor = categoryDto.BackgroundColor,
-                CategoryType = (CategoryType)categoryDto.CategoryTypeId,
                 Name = categoryDto.Name
             };
 
@@ -104,6 +103,31 @@ namespace DreamsComeTrueAPI.Controllers
 
         [HttpDelete("DeleteCategory/{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
+        {
+            if(!await _todoRepository.DeleteCategory(id))
+                return BadRequest();
+
+            return Ok();
+        }
+
+        [HttpPost("AddDreamCategory")]
+        public async Task<IActionResult> AddDreamCategory(CategoryDto categoryDto)
+        {
+            var item = new Category 
+            {
+                Color = categoryDto.Color,
+                BackgroundColor = categoryDto.BackgroundColor,
+                Name = categoryDto.Name
+            };
+
+            if(await _todoRepository.AddCategory(item, CategoryType.Marzenia) == null)
+                return BadRequest();
+
+            return StatusCode(201);
+        }
+
+        [HttpDelete("DeleteDreamCategory/{id}")]
+        public async Task<IActionResult> DeleteDreamCategory(int id)
         {
             if(!await _todoRepository.DeleteCategory(id))
                 return BadRequest();

@@ -1,0 +1,31 @@
+form input.btn {
+    margin-top: 2rem;
+}
+
+.actions {
+    float: right;
+}
+
+.actions span {
+    margin-left: 0.5rem;
+    opacity: 0;
+    transition: .3s all;
+}
+
+.category:hover .actions span {
+    opacity: 1;
+}
+
+.actions span i {
+    cursor: pointer;
+}
+
+.actions span i.white {
+    color: white;
+}
+
+.actions span i.red {
+    color: rgb(231, 52, 52);
+    font-size: 1.15rem;
+}
+

@@ -31,4 +31,5 @@ li {
 
 .cost {
     font-style: italic;
+    white-space: nowrap;
 }

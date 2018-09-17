@@ -1,0 +1,34 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+
+    </div>
+  </div>
+  <div class="row panels">
+    <div class="col-md-5 panel panel-left">
+      <ul>
+        <li *ngFor="let item of todoList">{{item.name}}</li>
+      </ul>
+    </div>
+    <div class="col-md-1 panel-management">
+      <div class="row arrow top-arrow">
+        <div class="col-md-12">
+          <span><i class="fa fa-arrow-left"></i></span>
+        </div>
+      </div>
+      <div class="row arrow bottom-arrow">
+        <div class="col-md-12">
+          <span><i class="fa fa-arrow-right"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 panel panel-right">
+      <ul>
+        <li *ngFor="let item of categoryList">{{item.name}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row mt-8">
+  <div class="col-md-12"></div>
+</div>

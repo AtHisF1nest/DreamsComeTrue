@@ -16,6 +16,14 @@ import { ManagementTodosComponent } from './Managaments/management-todos/managem
 import { ManagementCategoriesComponent } from './Managaments/management-categories/management-categories.component';
 import { ManagementDreamsComponent } from './Managaments/management-dreams/management-dreams.component';
 import { ManagementDreamsResolver } from './_resolvers/management-dreams.resolver';
+import { ManagementDreamsCategoriesResolver } from './_resolvers/management-dreams-categories.resolver';
+import { ManagementDreamsCategoriesComponent } from './Managaments/management-dreams-categories/management-dreams-categories.component';
+import { DreamListResolver } from './_resolvers/dream-list.resolver';
+import { DreamListComponent } from './Todos/dream-list/dream-list.component';
+import { ManagementDreamsConnectionsComponent } from './Managaments/management-dreams-connections/management-dreams-connections.component';
+import { ManagementTodosConnectionsComponent } from './Managaments/management-todos-connections/management-todos-connections.component';
+import { ManagementTodosConnectionsResolver } from './_resolvers/management-todos-connections.resolver';
+import { ManagementDreamsConnectionsResolver } from './_resolvers/management-dreams-connections.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -26,6 +34,8 @@ export const appRoutes: Routes = [
       children: [
         { path: 'nasze-cele', component: TodoListComponent,
             resolve: {todoList: TodoListResolver} },
+        { path: 'nasze-marzenia', component: DreamListComponent,
+            resolve: {dreamList: DreamListResolver} },
         { path: 'nasze-cele/:id', component: TodoListDetailComponent,
             resolve: {todoItem: TodoListDetailResolver} },
         { path: 'zarzadzanie', component: ManagementComponent,
@@ -36,6 +46,12 @@ export const appRoutes: Routes = [
             resolve: {categoryList: ManagementCategoriesResolver} },
         { path: 'zarzadzanie-marzeniami', component: ManagementDreamsComponent,
             resolve: {dreamList: ManagementDreamsResolver} },
+        { path: 'zarzadzanie-kategoriami-marzen', component: ManagementDreamsCategoriesComponent,
+            resolve: {categoryList: ManagementDreamsCategoriesResolver} },
+        { path: 'zarzadzanie-polaczeniami-celow', component: ManagementTodosConnectionsComponent,
+            resolve: {categoryList: ManagementTodosConnectionsResolver} },
+        { path: 'zarzadzanie-polaczeniami-marzen', component: ManagementDreamsConnectionsComponent,
+            resolve: {categoryList: ManagementDreamsConnectionsResolver} },
         { path: 'kalendarz', component: CalendarComponent }
       ]
     },

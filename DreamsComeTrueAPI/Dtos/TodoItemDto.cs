@@ -7,7 +7,7 @@ namespace DreamsComeTrueAPI.Dtos
         public int Id { get; set; }
         [Required(ErrorMessage = "Pole treści jest wymagane.")]
         public string Objective { get; set; }
-        public int Cost { get; set; }
+        public string Cost { get; set; }
         public string CategoryType { get; set; }
         public UserForPreviewDto Author { get; set; }
         public string Created { get; set; }

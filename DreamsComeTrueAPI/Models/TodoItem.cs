@@ -8,7 +8,7 @@ namespace DreamsComeTrueAPI.Models
     {
         public int Id { get; set; }
         public string Objective { get; set; }
-        public int Cost { get; set; }
+        public string Cost { get; set; }
         public DateTime Created { get; set; }
         public DateTime? LastDone { get; set; }
         public CategoryType CategoryType { get; set; } = CategoryType.NaDzis;

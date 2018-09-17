@@ -34,10 +34,17 @@ import { ManagementTodosResolver } from './_resolvers/management-todos.resolver'
 import { ManagementCategoriesComponent } from './Managaments/management-categories/management-categories.component';
 import { ManagementTodosComponent } from './Managaments/management-todos/management-todos.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { ManagementConnectionsComponent } from './Managaments/management-connections/management-connections.component';
 import { ManagementDreamsComponent } from './Managaments/management-dreams/management-dreams.component';
 import { ManagementTodosListComponent } from './Managaments/management-todos-list/management-todos-list.component';
 import { ManagementDreamsResolver } from './_resolvers/management-dreams.resolver';
+import { ManagementDreamsCategoriesResolver } from './_resolvers/management-dreams-categories.resolver';
+import { ManagementDreamsCategoriesComponent } from './Managaments/management-dreams-categories/management-dreams-categories.component';
+import { DreamListComponent } from './Todos/dream-list/dream-list.component';
+import { DreamListResolver } from './_resolvers/dream-list.resolver';
+import { ManagementDreamsConnectionsResolver } from './_resolvers/management-dreams-connections.resolver';
+import { ManagementTodosConnectionsResolver } from './_resolvers/management-todos-connections.resolver';
+import { ManagementDreamsConnectionsComponent } from './Managaments/management-dreams-connections/management-dreams-connections.component';
+import { ManagementTodosConnectionsComponent } from './Managaments/management-todos-connections/management-todos-connections.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -59,9 +66,12 @@ export function tokenGetter() {
       ManagementCategoriesComponent,
       ManagementTodosComponent,
       BreadcrumbsComponent,
-      ManagementConnectionsComponent,
       ManagementDreamsComponent,
-      ManagementTodosListComponent
+      ManagementTodosListComponent,
+      ManagementDreamsCategoriesComponent,
+      DreamListComponent,
+      ManagementDreamsConnectionsComponent,
+      ManagementTodosConnectionsComponent
    ],
    imports: [
       BrowserModule,
@@ -90,7 +100,11 @@ export function tokenGetter() {
       ManagementResolver,
       ManagementCategoriesResolver,
       ManagementTodosResolver,
-      ManagementDreamsResolver
+      ManagementDreamsResolver,
+      ManagementDreamsCategoriesResolver,
+      DreamListResolver,
+      ManagementDreamsConnectionsResolver,
+      ManagementTodosConnectionsResolver
    ],
    bootstrap: [
       AppComponent

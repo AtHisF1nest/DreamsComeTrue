@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ManagementConnectionsComponent } from './management-connections.component';
+import { ManagementTodosConnectionsComponent } from './management-todos-connections.component';
 
-describe('ManagementConnectionsComponent', () => {
-  let component: ManagementConnectionsComponent;
-  let fixture: ComponentFixture<ManagementConnectionsComponent>;
+describe('ManagementTodosConnectionsComponent', () => {
+  let component: ManagementTodosConnectionsComponent;
+  let fixture: ComponentFixture<ManagementTodosConnectionsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagementConnectionsComponent ]
+      declarations: [ ManagementTodosConnectionsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagementConnectionsComponent);
+    fixture = TestBed.createComponent(ManagementTodosConnectionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

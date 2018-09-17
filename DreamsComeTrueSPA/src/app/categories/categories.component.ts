@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { TodosService } from '../_services/todos.service';
 import { Category } from '../_models/category';
@@ -13,20 +13,12 @@ export class CategoriesComponent implements OnInit {
 
   baseUrl = environment.apiUrl + 'todos/';
 
-  categories: Category[];
+  @Input() categories: Category[];
 
   constructor(private todosService: TodosService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    this.loadCategories();
-  }
 
-  loadCategories() {
-    this.todosService.getCategories().subscribe(categories => {
-      this.categories = categories;
-    }, error => {
-      this.alertify.error(error);
-    });
   }
 
   anyCategoryActive() {

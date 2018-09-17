@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { TodosService } from '../../_services/todos.service';
 import { Todo } from '../../_models/todo';
+import { TodosService } from '../../_services/todos.service';
 import { AlertifyService } from '../../_services/alertify.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../../_models/category';
 
 @Component({
-  selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  selector: 'app-dream-list',
+  templateUrl: './dream-list.component.html',
+  styleUrls: ['./dream-list.component.css']
 })
-export class TodoListComponent implements OnInit {
+export class DreamListComponent implements OnInit {
 
-  todoList: Todo[];
+  dreamList: Todo[];
 
   categories: Category[];
 
-  unit = 'h';
+  unit = 'zł';
 
   constructor(private todosService: TodosService, private alertify: AlertifyService, private route: ActivatedRoute,
     private router: Router) { }
@@ -25,17 +25,16 @@ export class TodoListComponent implements OnInit {
     this.loadCategories();
 
     this.route.data.subscribe(data => {
-      this.todoList = data['todoList'];
-      if (!this.todoList)  {
+      this.dreamList = data['dreamList'];
+      if (!this.dreamList)  {
         this.alertify.error('Wystąpił problem przy pobieraniu danych.');
         this.router.navigate(['']);
       }
     });
-
   }
 
   loadCategories() {
-    this.todosService.getCategories().subscribe(categories => {
+    this.todosService.getDreamsCategories().subscribe(categories => {
       this.categories = categories;
     }, error => {
       this.alertify.error(error);

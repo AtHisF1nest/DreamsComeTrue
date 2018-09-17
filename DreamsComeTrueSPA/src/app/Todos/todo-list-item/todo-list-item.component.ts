@@ -8,6 +8,7 @@ import { Todo } from '../../_models/todo';
 })
 export class TodoListItemComponent implements OnInit {
   @Input() item: Todo;
+  @Input() unit: string;
 
 
   constructor() { }

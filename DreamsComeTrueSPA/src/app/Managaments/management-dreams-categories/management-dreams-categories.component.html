@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <h1 class="display-4">Witajcie, to Wasze kategorie marzeń!</h1>
+            <p class="lead">Zapewne nie będzie ich zbyt długo, ale zawsze mogą pomóc przy filtrowaniu, dla przykładu, dobrym pomysłem może być podzielenie marzeń tych drogich, i tych nie wymagających pieniędzy.</p>
+            <hr class="my-4">
+            <form #addTodoForm="ngForm" (ngSubmit)="addCategory()">
+              <div class="form-row ">
+                  <div class="form-group col-md-3">
+                      <label for="inputCategory">Nazwa</label>
+                      <input type="text" class="form-control" id="inputCategory" [(ngModel)]="categoryModel.name" name="name" placeholder="Za granicą..">
+                  </div>
+                  <div class="form-group col-md-3">
+                      <input type="submit" id="inputSubmit" class="btn btn-success" value="Dodaj!">
+                  </div>
+              </div>
+          </form>
+          </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h1>Kategorie <span class="badge badge-secondary">{{categoryList?.length}}</span></h1>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div *ngFor="let category of categoryList" class="col-lg-2 col-sm-3 category category-editable">
+      <span>{{ category.name }}</span>
+      <span class="actions"><span (click)="deleteCategory(category.id)"><i class="fa fa-times red"></i></span></span>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-7"></div>

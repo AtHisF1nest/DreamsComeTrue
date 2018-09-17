@@ -42,4 +42,12 @@ export class ManagementService {
   deleteCategory(id) {
     return this.http.delete(this.baseUrl + 'DeleteCategory/' + id);
   }
+
+  addDreamCategory(categoryModel: Category) {
+    return this.http.post(this.baseUrl + 'AddDreamCategory', categoryModel);
+  }
+
+  deleteDreamCategory(id) {
+    return this.http.delete(this.baseUrl + 'DeleteDreamCategory/' + id);
+  }
 }
