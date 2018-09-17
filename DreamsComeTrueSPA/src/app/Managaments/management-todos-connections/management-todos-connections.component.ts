@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../../_models/todo';
 import { Category } from '../../_models/category';
+import { ActivatedRoute } from '@angular/router';
+import { AlertifyService } from '../../_services/alertify.service';
 
 @Component({
   selector: 'app-management-todos-connections',
@@ -13,9 +15,13 @@ export class ManagementTodosConnectionsComponent implements OnInit {
 
   categoryList: Category[];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private alertify: AlertifyService) { }
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.todoList = data['todoList'];
+      this.categoryList = data['categoryList'];
+    });
   }
 
 }

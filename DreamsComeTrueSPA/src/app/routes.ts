@@ -49,9 +49,9 @@ export const appRoutes: Routes = [
         { path: 'zarzadzanie-kategoriami-marzen', component: ManagementDreamsCategoriesComponent,
             resolve: {categoryList: ManagementDreamsCategoriesResolver} },
         { path: 'zarzadzanie-polaczeniami-celow', component: ManagementTodosConnectionsComponent,
-            resolve: {categoryList: ManagementTodosConnectionsResolver} },
+            resolve: {todoList: ManagementTodosResolver, categoryList: ManagementCategoriesResolver} },
         { path: 'zarzadzanie-polaczeniami-marzen', component: ManagementDreamsConnectionsComponent,
-            resolve: {categoryList: ManagementDreamsConnectionsResolver} },
+            resolve: {dreamList: ManagementDreamsResolver, categoryList: ManagementDreamsCategoriesComponent} },
         { path: 'kalendarz', component: CalendarComponent }
       ]
     },

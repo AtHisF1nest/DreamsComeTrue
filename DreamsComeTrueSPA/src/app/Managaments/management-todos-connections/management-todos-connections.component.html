@@ -6,26 +6,21 @@
   </div>
   <div class="row panels">
     <div class="col-md-5 panel panel-left">
-      <ul>
-        <li *ngFor="let item of todoList">{{item.name}}</li>
-      </ul>
+      <div class="row list-group">
+        <button *ngFor="let item of categoryList" type="button" class="list-group-item list-group-item-action">
+          {{item.name}} 
+          <span class="badge badge-primary badge-pill">0</span>
+        </button>
+      </div>
     </div>
     <div class="col-md-1 panel-management">
-      <div class="row arrow top-arrow">
-        <div class="col-md-12">
-          <span><i class="fa fa-arrow-left"></i></span>
-        </div>
-      </div>
-      <div class="row arrow bottom-arrow">
-        <div class="col-md-12">
-          <span><i class="fa fa-arrow-right"></i></span>
-        </div>
-      </div>
     </div>
     <div class="col-md-5 panel panel-right">
-      <ul>
-        <li *ngFor="let item of categoryList">{{item.name}}</li>
-      </ul>
+      <div class="row list-group">
+        <button *ngFor="let item of todoList" type="button" class="list-group-item list-group-item-action">
+          <b>{{item.id}}.</b>  {{item.objective}} 
+        </button>
+      </div>
     </div>
   </div>
 </div>

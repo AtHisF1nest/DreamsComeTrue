@@ -32,3 +32,26 @@
 .top-arrow {
     margin-top: 14rem;
 }
+
+.middle-arrow {
+    margin-top: 15rem;
+}
+
+.badge {
+    margin-left: .4rem;
+}
+
+.list-group-item-action {
+    transition: .3s all;
+}
+
+.list-group-item-action:hover {
+    cursor: pointer;
+    background-color: #E95420;
+    color: white;
+}
+
+.list-group-item-action:hover .badge {
+    background-color: white;
+    color: #E95420;
+}
