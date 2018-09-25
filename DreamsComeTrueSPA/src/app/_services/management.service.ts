@@ -5,6 +5,7 @@ import { ManagementType } from '../_models/managementType';
 import { Observable } from 'rxjs';
 import { Todo } from '../_models/todo';
 import { Category } from '../_models/category';
+import { TodoConnection } from '../_models/todoConnection';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,17 @@ export class ManagementService {
 
   deleteDreamCategory(id) {
     return this.http.delete(this.baseUrl + 'DeleteDreamCategory/' + id);
+  }
+
+  connectItems(connection: TodoConnection) {
+    return this.http.post(this.baseUrl + 'ConnectItems', connection);
+  }
+
+  unConnectItems(connection: TodoConnection) {
+     return this.http.post(this.baseUrl + 'UnConnectItems', connection);
+  }
+
+  realizeTodo(todoItem: any) {
+    return this.http.post(this.baseUrl + 'RealizeTodo', todoItem);
   }
 }

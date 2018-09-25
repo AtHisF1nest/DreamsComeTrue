@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DreamsComeTrueAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ManagementController : ControllerBase
@@ -133,6 +133,33 @@ namespace DreamsComeTrueAPI.Controllers
                 return BadRequest();
 
             return Ok();
+        }
+
+        [HttpPost("ConnectItems")]
+        public async Task<IActionResult> ConnectItems(TodoConnectionDto todoConnectionDto)
+        {
+            if(await _todoRepository.ConnectItems(todoConnectionDto.CategoryId, todoConnectionDto.ItemId))
+                return Ok();
+
+            return BadRequest();
+        }
+
+        [HttpPost("UnConnectItems")]
+        public async Task<IActionResult> UnConnectItems(TodoConnectionDto todoConnectionDto)
+        {
+            if(await _todoRepository.UnConnectItems(todoConnectionDto.CategoryId, todoConnectionDto.ItemId))
+                return Ok();
+
+            return BadRequest();
+        }
+
+        [HttpPost("RealizeTodo")]
+        public async Task<IActionResult> RealizeTodo(TodoItemDto todoItemDto)
+        {
+            if(await _todoRepository.RealizeTodo(todoItemDto.Id, todoItemDto.LastDone))
+                return Ok();
+
+            return BadRequest();
         }
 
     }

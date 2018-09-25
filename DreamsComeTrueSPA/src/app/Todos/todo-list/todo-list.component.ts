@@ -42,4 +42,16 @@ export class TodoListComponent implements OnInit {
     });
   }
 
+  searchTodos(categories: Category[]) {
+    this.todosService.getItemsByCategories(categories).subscribe(response => {
+      if (this.todoList) {
+        this.todoList = response;
+      } else {
+        this.alertify.message('Brak wystąpień, spróbuj zmienić kategorie!');
+      }
+    }, error => {
+      this.alertify.error('Wystąpił problem podczas filtrowania danych.');
+    });
+  }
+
 }

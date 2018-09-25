@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { TodosService } from '../_services/todos.service';
 import { Category } from '../_models/category';
@@ -11,27 +11,35 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  baseUrl = environment.apiUrl + 'todos/';
-
+  @Output() search = new EventEmitter();
   @Input() categories: Category[];
+  selectedCategories: Category[];
 
   constructor(private todosService: TodosService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-
+    this.selectedCategories = [];
   }
 
-  anyCategoryActive() {
-    if (!this.categories) {
-      return false;
-    }
-    this.categories.forEach(element => {
-      if (element.active) {
-        return true;
+  resetCategories() {
+    this.categories.forEach(x => x.active = false);
+    this.emitSearch();
+  }
+
+  toggleActive(item: Category) {
+    item.active = !item.active;
+    this.emitSearch();
+  }
+
+  emitSearch() {
+    this.selectedCategories = [];
+    this.categories.forEach(x => {
+      if (x.active) {
+        this.selectedCategories.push(x);
       }
     });
 
-    return false;
+    this.search.emit(this.selectedCategories);
   }
 
 }

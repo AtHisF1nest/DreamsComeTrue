@@ -5,17 +5,18 @@ import { TodosService } from '../_services/todos.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { HistoryDto } from '../_models/historyDto';
 
 @Injectable()
-export class ManagementTodosConnectionsResolver implements Resolve<Todo[]> {
+export class HistoryOfTodoResolver implements Resolve<HistoryDto[]> {
     constructor(private todosService: TodosService, private router: Router,
         private alertify: AlertifyService) {}
 
-    resolve(route: ActivatedRouteSnapshot): Observable<Todo[]> {
-        return this.todosService.getDreams().pipe(
+    resolve(route: ActivatedRouteSnapshot): Observable<HistoryDto[]> {
+        return this.todosService.getHistory(route.params['id']).pipe(
             catchError(error => {
                 this.alertify.error('Wystąpił problem przy pobieraniu danych.');
-                this.router.navigate(['']);
+                this.router.navigate(['/nasze-cele']);
                 return of(null);
             })
         );

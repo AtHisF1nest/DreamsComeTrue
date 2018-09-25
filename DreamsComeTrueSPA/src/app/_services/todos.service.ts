@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Todo } from '../_models/todo';
 import { Category } from '../_models/category';
+import { HistoryDto } from '../_models/historyDto';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,14 @@ export class TodosService {
     return this.http.get<Todo[]>(this.baseUrl);
   }
 
+  getItemsByCategories(categories: Category[]): Observable<Todo[]> {
+    return this.http.post<Todo[]>(this.baseUrl + 'GetTodosByCategories', categories);
+  }
+
+  getNotConnectedItems(categoryId): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.baseUrl + 'GetNotConnectedItems/' + categoryId);
+  }
+
   getItem(id): Observable<Todo> {
     return this.http.get<Todo>(this.baseUrl + id);
   }
@@ -31,12 +40,28 @@ export class TodosService {
     return this.http.get<Todo[]>(this.baseUrl + 'GetDreams');
   }
 
+  getNotConnectedDreams(categoryId): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.baseUrl + 'GetNotConnectedDreams/' + categoryId);
+  }
+
   getDream(id): Observable<Todo> {
     return this.http.get<Todo>(this.baseUrl + 'GetDream/' + id);
   }
 
   getDreamsCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.baseUrl + 'GetDreamsCategories');
+  }
+
+  getTodosConnections(id): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.baseUrl + 'GetTodosConnections/' + id);
+  }
+
+  getTodosDreamsConnections(id): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.baseUrl + 'GetTodosDreamsConnections/' + id);
+  }
+
+  getHistory(id): Observable<HistoryDto[]> {
+    return this.http.get<HistoryDto[]>(this.baseUrl + 'GetHistoryOfTodo/' + id);
   }
 
 }

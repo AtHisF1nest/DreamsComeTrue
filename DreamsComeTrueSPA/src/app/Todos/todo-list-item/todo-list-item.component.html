@@ -1,6 +1,6 @@
 <li class="list-group-item d-flex justify-content-between align-items-center mt-2 row" [routerLink]="['/nasze-cele/', item.id]" >
   <div class="col-lg-2 col-sm-2"><span class="profile-info">{{ item.author.name | titlecase }}</span><span><img class="profile-avatar" src="{{ item.author.photoUrl }}" /></span></div>
-  <div class="col-lg-1 col-sm-1"><span class="cost">{{ item.cost }} {{unit}}</span></div>
+  <div class="col-lg-1 col-sm-1"><span class="cost">{{ item.cost }} <span *ngIf="item.cost">{{unit}}</span></span></div>
   <div class="col-lg-2 col-sm-2"><span class="last-done">{{ item.lastDone }}</span></div>
   <div class="col-lg-7 col-sm-7"><span class="objective">{{ item.objective }}</span></div>
 </li>

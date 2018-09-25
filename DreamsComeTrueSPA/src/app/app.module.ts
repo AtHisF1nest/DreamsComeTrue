@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -41,10 +41,9 @@ import { ManagementDreamsCategoriesResolver } from './_resolvers/management-drea
 import { ManagementDreamsCategoriesComponent } from './Managaments/management-dreams-categories/management-dreams-categories.component';
 import { DreamListComponent } from './Todos/dream-list/dream-list.component';
 import { DreamListResolver } from './_resolvers/dream-list.resolver';
-import { ManagementDreamsConnectionsResolver } from './_resolvers/management-dreams-connections.resolver';
-import { ManagementTodosConnectionsResolver } from './_resolvers/management-todos-connections.resolver';
 import { ManagementDreamsConnectionsComponent } from './Managaments/management-dreams-connections/management-dreams-connections.component';
 import { ManagementTodosConnectionsComponent } from './Managaments/management-todos-connections/management-todos-connections.component';
+import { HistoryOfTodoResolver } from './_resolvers/history-of-todo.resolver';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -78,6 +77,8 @@ export function tokenGetter() {
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
+      BsDatepickerModule.forRoot(),
+      TimepickerModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
           config: {
@@ -103,8 +104,7 @@ export function tokenGetter() {
       ManagementDreamsResolver,
       ManagementDreamsCategoriesResolver,
       DreamListResolver,
-      ManagementDreamsConnectionsResolver,
-      ManagementTodosConnectionsResolver
+      HistoryOfTodoResolver
    ],
    bootstrap: [
       AppComponent

@@ -1,5 +1,5 @@
 li.header-element {
-    background-color: #3f51b5;
+    background-color: #1a1f3c;
     color: white;
 }
 
@@ -9,3 +9,33 @@ li.header-element i {
 li.header-element {
     cursor: default;
 }
+
+.background-image { 
+    background: url(../../../assets/pictures/background-2.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding-top: 1rem;
+    height: 1080px;
+  }
+
+
+
+  h1 span.text { 
+    color: white; 
+    letter-spacing: -1px;  
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+    padding: .7rem; 
+    border-radius: 5px;
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
+    margin-right: 1rem;
+ }
+
+ h1 span.badge {
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+
+ }

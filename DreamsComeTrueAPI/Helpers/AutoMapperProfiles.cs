@@ -23,6 +23,11 @@ namespace DreamsComeTrueAPI.Helpers
                 .ForMember(dest => dest.CategoryType, opt => {
                     opt.MapFrom(src => src.CategoryType.GetDescription());
                 });
+
+            CreateMap<History, HistoryDto>()
+                .ForMember(dest => dest.Done, opt => {
+                    opt.MapFrom(src => src.Done.ToString("yyyy-MM-dd HH:mm"));
+                });
         }
     }
 }

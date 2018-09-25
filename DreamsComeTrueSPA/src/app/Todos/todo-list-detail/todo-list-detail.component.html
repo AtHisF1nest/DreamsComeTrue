@@ -1,1 +1,63 @@
-<p *ngIf="todoItem">{{todoItem.objective}}</p>
+<div class="background-image">
+    <div class="container mt-7">
+        <div class="row">
+            <div class="offset-3 col-md-7">
+                <div class="card border-info mb-3" >
+                    <div class="card-header"><span class="profile-avatar"><img src="{{todoItem.author.photoUrl}}" /></span> <span class="profile-info">{{todoItem.author.name | titlecase}}</span></div>
+                    <div class="card-body text-info">
+                      <p class="card-text">Cel</p>
+                      <h5 class="card-title">{{todoItem.objective}}</h5>
+                      <br />
+                      <hr />
+                      <br />
+                      <p class="card-text">Historia</p>
+                      <div class="row history">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Data</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of historyOfTodoItem">
+                                <th scope="row">{{item.id}}</th>
+                                <td>{{item.done}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                      </div>
+                      <br />
+                      <hr />
+                      <br />
+                      <p class="card-text">Akcje</p>
+                      <form #realizeForm="ngForm" (ngSubmit)="realizeTodo()">
+                      <div class="row actions">
+                        <div class="col-md-12">
+                          <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <input type="text" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-red' }" autocomplete="off" bsDatepicker class="form-control" 
+                                          id="inputDate" [(ngModel)]="doneDate" name="doneDate" required placeholder="Data zrealizowania..">
+                                          <timepicker [showMeridian]="true" [(ngModel)]="doneTime" name="doneTime" required></timepicker>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <button type="submit" class="btn btn-success">Zrealizowane!</button>
+                                  </div>
+                                
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-10">
+      <div class="col-md-12"></div>
+    </div>
+</div>
+
+

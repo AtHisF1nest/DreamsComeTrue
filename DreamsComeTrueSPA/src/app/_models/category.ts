@@ -4,4 +4,5 @@ export interface Category {
     backgroundColor?: string;
     color?: string;
     active?: boolean;
+    countOfItems?: number;
 }

@@ -9,3 +9,12 @@ li.header-element i {
 li.header-element {
     cursor: default;
 }
+
+.background-image { 
+    background: url(../../../assets/pictures/background-1.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding-top: 1rem;
+  }

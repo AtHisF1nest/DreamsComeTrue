@@ -46,7 +46,7 @@ export class ManagementDreamsComponent implements OnInit {
 
   deleteDream(id) {
     this.managementService.deleteDream(id).subscribe(() => {
-      this.alertify.success('Marzenie zostało dodane!');
+      this.alertify.success('Marzenie zostało usunięte!');
       this.loadDreams();
     }, error => {
       this.alertify.error(error);

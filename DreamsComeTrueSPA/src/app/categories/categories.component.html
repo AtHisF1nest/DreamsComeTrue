@@ -1,10 +1,14 @@
 <div *ngIf="categories && categories.length > 0" class="container">
   <div class="row">
-    <div class="col-lg-2 col-sm-3 category header-category">
+    <div class="col-lg-2 col-sm-3 category header-category" (click)="resetCategories()">
       Wszystkie
     </div>
-    <div *ngFor="let category of categories" class="col-lg-2 col-sm-3 category" [style.color]="category.color" [style.background-color]="category.backgroundColor">
-      {{ category.name }}
+    <div *ngFor="let category of categories" class="col-lg-2 col-sm-3 category" [style.color]="category.color"
+           [style.background-color]="category.backgroundColor" (click)="toggleActive(category)" [class.active]="category.active">
+      <div>{{ category.name }}</div>
+      <div *ngIf="category.active" class="icon-active">
+        <span><i class="fa fa-check-circle"></i></span>
+      </div>
     </div>
   </div>
 </div>

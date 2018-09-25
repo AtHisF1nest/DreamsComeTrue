@@ -11,6 +11,8 @@ namespace DreamsComeTrueAPI.Dtos
         public string CategoryType { get; set; }
         public UserForPreviewDto Author { get; set; }
         public string Created { get; set; }
+        
+        [Required(ErrorMessage = "Data jest wymagana!")]
         public string LastDone { get; set; }
     }
 }

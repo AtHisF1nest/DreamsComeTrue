@@ -1,0 +1,44 @@
+.profile-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-avatar {
+    text-align: center;
+}
+
+.profile-info {
+    float: right;
+    font-size: 2.5rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    color: rgb(255, 102, 0);
+}
+
+.card-text {
+    color: rgb(252, 144, 4);
+}
+
+h5, table tr {
+    color: rgba(34, 34, 34, 0.9);
+}
+
+.background-image { 
+    background: url(../../../assets/pictures/background-3.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding-top: 1rem;
+    padding-bottom: 12rem;
+  }
+
+  .card {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+
+  .actions input {
+      margin-left: 0.5rem;
+  }
+  

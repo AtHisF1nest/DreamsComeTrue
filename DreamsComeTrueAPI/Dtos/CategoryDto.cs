@@ -9,5 +9,7 @@ namespace DreamsComeTrueAPI.Dtos
         public UserForPreviewDto Author { get; set; }
         public string CategoryType { get; set; }
         public int CategoryTypeId { get; set; }
+        public int CountOfItems { get; set; }
+        public bool Active { get; set; }    
     }
 }

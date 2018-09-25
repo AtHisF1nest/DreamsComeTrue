@@ -24,11 +24,25 @@ namespace DreamsComeTrueAPI.Repositories
             _actualUserLogin = _httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
-        public async Task<IEnumerable<TodoItem>> GetTodoItems(CategoryType type = CategoryType.NaDzis)
+        public async Task<IEnumerable<TodoItem>> GetTodoItems(CategoryType type = CategoryType.NaDzis, List<int> categoryIds = null)
         {
+            List<int> bindings = new List<int>();
+
+            if(categoryIds != null && categoryIds.Count > 0)
+            {
+                var temp = await _context.CategoryTodoItemBindings.Include(x => x.Category).Include(x => x.TodoItem).Where(x => categoryIds.Contains(x.Category.Id)).ToListAsync();
+                temp.ForEach(x => {
+                    if(temp.Where(y => y.TodoItem.Id == x.TodoItem.Id).Count() == categoryIds.Count)
+                        bindings.Add(x.TodoItem.Id);
+                });
+            }
+            else
+                categoryIds = null;
+
             return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
                 .Where(x => x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
-                        && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
+                        && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)
+                        && (categoryIds == null || bindings.Contains(x.Id))).ToListAsync();
         }
 
         public async Task<TodoItem> GetTodoItem(int id, CategoryType type = CategoryType.NaDzis)
@@ -86,6 +100,67 @@ namespace DreamsComeTrueAPI.Repositories
         {
             _context.CategoryTodoItemBindings.RemoveRange(await _context.CategoryTodoItemBindings.Where(x => x.Category.Id == id).ToListAsync());
             _context.Categories.Remove(await _context.Categories.FirstOrDefaultAsync(x => x.Id == id));
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<TodoItem>> GetConnectedTodoItems(int categoryId, CategoryType type = CategoryType.NaDzis)
+        {
+            var connections = await _context.CategoryTodoItemBindings.Include(x => x.TodoItem).Where(x => x.Category.Id == categoryId).ToListAsync();
+
+            return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
+                .Where(x => connections.Any(y => x.Id == y.TodoItem.Id) && x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                        && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<TodoItem>> GetNotConnectedTodoItems(int categoryId, CategoryType type = CategoryType.NaDzis)
+        {
+            var connections = await _context.CategoryTodoItemBindings.Include(x => x.TodoItem).Where(x => x.Category.Id == categoryId).ToListAsync();
+
+            return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
+                .Where(x => !connections.Any(y => x.Id == y.TodoItem.Id) && x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                        && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
+        }
+
+        public async Task<bool> ConnectItems(int categoryId, int itemId)
+        {
+            var todo = await _context.TodoItems.FirstOrDefaultAsync(x => x.Id == itemId);
+
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == categoryId);
+
+            if(await _context.CategoryTodoItemBindings.AnyAsync(x => x.Category == category && x.TodoItem == todo))
+                return false;
+
+            await _context.CategoryTodoItemBindings.AddAsync(new CategoryTodoItemBinding() {
+                Category = category,
+                TodoItem = todo
+            });
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> UnConnectItems(int categoryId, int itemId)
+        {
+            var connection = await _context.CategoryTodoItemBindings.FirstOrDefaultAsync(x => x.TodoItem.Id == itemId && x.Category.Id == categoryId);
+
+            _context.CategoryTodoItemBindings.Remove(connection);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<History>> GetHistoryOfTodo(int todoId, CategoryType type = CategoryType.NaDzis)
+        {
+            return await _context.Histories.Where(x => x.TodoItem.Id == todoId).ToListAsync();
+        }
+
+        public async Task<bool> RealizeTodo(int id, string date)
+        {
+            var todo = await _context.TodoItems.FirstOrDefaultAsync(x => x.Id == id);
+            todo.LastDone = DateTime.Parse(date);
+            await _context.Histories.AddAsync(new History {
+                Done = (DateTime)todo.LastDone,
+                TodoItem = todo
+            });
+
             return await _context.SaveChangesAsync() > 0;
         }
     }
