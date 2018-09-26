@@ -16,6 +16,7 @@ export class TodoListDetailComponent implements OnInit {
   todoItem: Todo;
   historyOfTodoItem: HistoryDto[];
   doneDate: any;
+  doneTime: any;
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService, private router: Router,
     private managementService: ManagementService, private todosService: TodosService) { }
@@ -32,6 +33,9 @@ export class TodoListDetailComponent implements OnInit {
   }
 
   realizeTodo() {
+    this.doneDate.setHours(this.doneTime.getHours());
+    this.doneDate.setMinutes(this.doneTime.getMinutes());
+
     this.todoItem.lastDone = this.doneDate;
     this.managementService.realizeTodo(this.todoItem).subscribe(() => {
       this.todoItem.lastDone = '';
@@ -45,6 +49,18 @@ export class TodoListDetailComponent implements OnInit {
       });
     }, error => {
       this.alertify.error(error);
+    });
+  }
+
+  deleteHistory(item: HistoryDto) {
+    this.managementService.deleteHistory(item.id).subscribe(() => {
+      this.alertify.message('Pomyślnie usunięto z historii.');
+
+      const indexOf = this.historyOfTodoItem.indexOf(item);
+      this.historyOfTodoItem.splice(indexOf, 1);
+
+    }, error => {
+      this.alertify.error('Usunięcie nie powiodło się!');
     });
   }
 

@@ -21,5 +21,6 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<bool> UnConnectItems(int categoryId, int itemId);
          Task<IEnumerable<History>> GetHistoryOfTodo(int todoId, CategoryType type = CategoryType.NaDzis);
          Task<bool> RealizeTodo(int id, string date);
+         Task<bool> DeleteHistory(int id);
     }
 }

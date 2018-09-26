@@ -5,6 +5,7 @@
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 
 .mt-10 {
     margin-top: 10rem !important;
@@ -67,6 +68,12 @@ div.scrollable-y {
     overflow-y: auto;
 }
 
-  body {
-      overflow-x: hidden !important;
-  }
+body {
+    overflow-x: hidden !important;
+}
+
+.randomize-button-section hr {
+    width: 50%;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}

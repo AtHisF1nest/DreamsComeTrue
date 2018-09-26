@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using DreamsComeTrueAPI.Dtos;
 using DreamsComeTrueAPI.Models;
@@ -22,9 +23,16 @@ namespace DreamsComeTrueAPI.Helpers
                 })
                 .ForMember(dest => dest.CategoryType, opt => {
                     opt.MapFrom(src => src.CategoryType.GetDescription());
+                })
+                .ForMember(dest => dest.LastDone, opt => {
+                    opt.ResolveUsing(src => {
+                        if(src.LastDone != null)
+                            return ((DateTime)src.LastDone).ToString("yyyy-MM-dd");
+                        else
+                            return string.Empty;
+                    });
                 });
-
-            CreateMap<History, HistoryDto>()
+             CreateMap<History, HistoryDto>()
                 .ForMember(dest => dest.Done, opt => {
                     opt.MapFrom(src => src.Done.ToString("yyyy-MM-dd HH:mm"));
                 });

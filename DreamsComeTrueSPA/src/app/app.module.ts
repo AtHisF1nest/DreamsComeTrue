@@ -44,6 +44,7 @@ import { DreamListResolver } from './_resolvers/dream-list.resolver';
 import { ManagementDreamsConnectionsComponent } from './Managaments/management-dreams-connections/management-dreams-connections.component';
 import { ManagementTodosConnectionsComponent } from './Managaments/management-todos-connections/management-todos-connections.component';
 import { HistoryOfTodoResolver } from './_resolvers/history-of-todo.resolver';
+import { RandomizeTodoComponent } from './randomize-todo/randomize-todo.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -70,7 +71,8 @@ export function tokenGetter() {
       ManagementDreamsCategoriesComponent,
       DreamListComponent,
       ManagementDreamsConnectionsComponent,
-      ManagementTodosConnectionsComponent
+      ManagementTodosConnectionsComponent,
+      RandomizeTodoComponent
    ],
    imports: [
       BrowserModule,

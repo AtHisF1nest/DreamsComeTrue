@@ -63,4 +63,8 @@ export class ManagementService {
   realizeTodo(todoItem: any) {
     return this.http.post(this.baseUrl + 'RealizeTodo', todoItem);
   }
+
+  deleteHistory(id) {
+    return this.http.delete(this.baseUrl + 'DeleteHistory/' + id);
+  }
 }

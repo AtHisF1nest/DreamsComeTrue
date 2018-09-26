@@ -1,5 +1,5 @@
 <div class="background-image">
-    <div class="container mt-7">
+    <div class="container mt-5">
         <div class="row">
             <div class="offset-3 col-md-7">
                 <div class="card border-info mb-3" >
@@ -17,12 +17,14 @@
                               <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Data</th>
+                                <th scope="col"></th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr *ngFor="let item of historyOfTodoItem">
                                 <th scope="row">{{item.id}}</th>
                                 <td>{{item.done}}</td>
+                                <td><span class="delete"><i class="fa fa-times" (click)="deleteHistory(item)"></i></span></td>
                               </tr>
                             </tbody>
                           </table>
@@ -39,7 +41,7 @@
                                     <div class="form-group row">
                                         <input type="text" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-red' }" autocomplete="off" bsDatepicker class="form-control" 
                                           id="inputDate" [(ngModel)]="doneDate" name="doneDate" required placeholder="Data zrealizowania..">
-                                          <timepicker [showMeridian]="true" [(ngModel)]="doneTime" name="doneTime" required></timepicker>
+                                          <timepicker [showMeridian]="false" [(ngModel)]="doneTime" name="doneTime" required></timepicker>
                                       </div>
                                   </div>
                                   <div class="col-md-6">

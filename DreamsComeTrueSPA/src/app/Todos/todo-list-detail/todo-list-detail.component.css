@@ -38,7 +38,31 @@ h5, table tr {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   }
 
-  .actions input {
+  .actions input:first-of-type {
       margin-left: 0.5rem;
+      width: 170px;
   }
   
+  timepicker {
+      margin-top: -28px;
+      margin-left: .5rem;
+  }
+
+  span.delete {
+      opacity: 0;
+      transition: .3s all;
+  }
+
+  span.delete i {
+      color: rgb(128, 0, 0);
+  }
+
+  table tr:hover span.delete {
+      opacity: 1;
+      cursor: pointer;
+
+  }
+
+  table tr:hover {
+      background-color: #efefef;
+  }

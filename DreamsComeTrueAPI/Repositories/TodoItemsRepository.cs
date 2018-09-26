@@ -163,5 +163,25 @@ namespace DreamsComeTrueAPI.Repositories
 
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> DeleteHistory(int id)
+        {
+            var history = await _context.Histories.Include(x => x.TodoItem).FirstOrDefaultAsync(x => x.Id == id);
+            var todoItem = await _context.TodoItems.FirstOrDefaultAsync(x => x.Id == history.TodoItem.Id);
+
+            if(todoItem.LastDone == history.Done)
+            {
+                todoItem.LastDone = null;
+
+                var previousHistory = await _context.Histories.Include(x => x.TodoItem).OrderByDescending(x => x.Done).FirstOrDefaultAsync(x => x.TodoItem.Id == todoItem.Id && x.Id != id);
+                if(previousHistory != null)
+                    todoItem.LastDone = previousHistory.Done;
+
+            }
+
+            _context.Histories.Remove(history);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

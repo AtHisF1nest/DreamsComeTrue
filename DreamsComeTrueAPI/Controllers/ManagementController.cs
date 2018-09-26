@@ -162,5 +162,14 @@ namespace DreamsComeTrueAPI.Controllers
             return BadRequest();
         }
 
+        [HttpDelete("DeleteHistory/{id}")]
+        public async Task<IActionResult> DeleteHistory(int id)
+        {
+            if(!await _todoRepository.DeleteHistory(id))
+                return BadRequest();
+
+            return Ok();
+        }
+
     }
 }
