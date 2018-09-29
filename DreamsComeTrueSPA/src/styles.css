@@ -77,3 +77,38 @@ body {
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
+
+.sm-show {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .sm-center {
+        text-align: center !important;
+    }
+
+    .sm-hide {
+        display: none !important;
+    }
+
+    .sm-show {
+        display: initial !important;
+    }
+
+    h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .text {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    .actions span {
+        opacity: 1 !important;
+    }
+
+    .sm-table {
+        zoom:.7;
+    }
+}

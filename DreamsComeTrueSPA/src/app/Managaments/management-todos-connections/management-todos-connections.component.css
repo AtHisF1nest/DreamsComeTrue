@@ -97,3 +97,12 @@
     cursor: pointer;
 }
 
+.panel-left {
+    overflow-y: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    button {
+        zoom: .8 !important;
+    }
+}

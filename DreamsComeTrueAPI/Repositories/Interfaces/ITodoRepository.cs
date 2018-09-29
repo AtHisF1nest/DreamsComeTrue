@@ -19,7 +19,7 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<bool> DeleteTodoItem(int id);
          Task<bool> ConnectItems(int categoryId, int itemId);
          Task<bool> UnConnectItems(int categoryId, int itemId);
-         Task<IEnumerable<History>> GetHistoryOfTodo(int todoId, CategoryType type = CategoryType.NaDzis);
+         Task<IEnumerable<History>> GetHistoryOfTodo(int todoId);
          Task<bool> RealizeTodo(int id, string date);
          Task<bool> DeleteHistory(int id);
     }

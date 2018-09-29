@@ -31,3 +31,17 @@ li {
     font-style: italic;
     white-space: nowrap;
 }
+
+@media only screen and (max-width: 600px) {
+    li.list-group-item {
+        zoom: .7;
+    }
+    div.objective-container {
+        text-align: right;
+    }
+
+    li.list-group-item {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+}

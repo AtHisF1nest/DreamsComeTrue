@@ -156,7 +156,7 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpGet("GetHistoryOfTodo/{id}")]
         public async Task<IEnumerable<HistoryDto>> GetHistoryOfTodo(int id)
         {
-            var histories = await _todoRepository.GetHistoryOfTodo(id, CategoryType.NaDzis);
+            var histories = await _todoRepository.GetHistoryOfTodo(id);
 
             var res = _mapper.Map<IEnumerable<HistoryDto>>(histories);
 

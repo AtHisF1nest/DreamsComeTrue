@@ -1,7 +1,7 @@
 <div class="background-image">
     <div class="container mt-5">
         <div class="row">
-            <div class="offset-3 col-md-7">
+            <div class="offset-3 col-md-7 col-12">
                 <div class="card border-info mb-3" >
                     <div class="card-header"><span class="profile-avatar"><img src="{{todoItem.author.photoUrl}}" /></span> <span class="profile-info">{{todoItem.author.name | titlecase}}</span></div>
                     <div class="card-body text-info">
@@ -35,16 +35,16 @@
                       <p class="card-text">Akcje</p>
                       <form #realizeForm="ngForm" (ngSubmit)="realizeTodo()">
                       <div class="row actions">
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-12">
                           <div class="row">
-                                  <div class="col-md-6">
+                                  <div class="col-md-6 col-12">
                                     <div class="form-group row">
                                         <input type="text" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-red' }" autocomplete="off" bsDatepicker class="form-control" 
                                           id="inputDate" [(ngModel)]="doneDate" name="doneDate" required placeholder="Data zrealizowania..">
                                           <timepicker [showMeridian]="false" [(ngModel)]="doneTime" name="doneTime" required></timepicker>
                                       </div>
                                   </div>
-                                  <div class="col-md-6">
+                                  <div class="col-md-6 col-12">
                                       <button type="submit" class="btn btn-success">Zrealizowane!</button>
                                   </div>
                                 

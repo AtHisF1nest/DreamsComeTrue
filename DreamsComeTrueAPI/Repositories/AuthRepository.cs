@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using DreamsComeTrueAPI.Data;
 using DreamsComeTrueAPI.Models;
+using DreamsComeTrueAPI.Models.Enums;
 using DreamsComeTrueAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,11 @@ namespace DreamsComeTrueAPI.Repositories
             user.PasswordSalt = passwordSalt;
 
             await _context.Users.AddAsync(user);
+            await _context.UsersPairs.AddAsync(new UsersPair {
+                User = user,
+                User2 = null,
+                RelationshipType = RelationshipType.SeriousRelationship
+            });
             await _context.SaveChangesAsync();
 
             return user;

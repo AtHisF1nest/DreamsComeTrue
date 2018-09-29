@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="row panels">
-    <div class="col-md-5 panel panel-left">
+    <div class="col-md-5 panel panel-left col-6">
       <div class="row list-group">
         <button *ngFor="let item of categoryList" type="button" class="list-group-item list-group-item-action" [class.active]="item.active" (click)="setActiveCategory(item)">
           {{item.name}} 
@@ -13,9 +13,9 @@
         </button>
       </div>
     </div>
-    <div class="col-md-1 panel-management">
+    <div class="col-md-1 panel-management sm-hide">
     </div>
-      <div class="col-md-5 panel panel-right">
+      <div class="col-md-5 panel panel-right col-6">
         <div class="row panel-top panel-smaller">
           <div class="col-md-12">
               <div class="row list-group">

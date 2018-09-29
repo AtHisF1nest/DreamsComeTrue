@@ -147,7 +147,7 @@ namespace DreamsComeTrueAPI.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<IEnumerable<History>> GetHistoryOfTodo(int todoId, CategoryType type = CategoryType.NaDzis)
+        public async Task<IEnumerable<History>> GetHistoryOfTodo(int todoId)
         {
             return await _context.Histories.Where(x => x.TodoItem.Id == todoId).ToListAsync();
         }
