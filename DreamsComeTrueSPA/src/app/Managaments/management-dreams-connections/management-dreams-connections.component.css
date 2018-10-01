@@ -105,4 +105,8 @@
     button {
         zoom: .8 !important;
     }
+
+    .panel-smaller {
+        height: 42% !important;
+    }
 }

@@ -97,6 +97,7 @@ body {
 
     h1 {
         font-size: 1.5rem !important;
+        line-height: 4rem !important;
     }
 
     .text {
@@ -115,4 +116,5 @@ body {
     .sm-nooffset {
         margin-left: 0px !important;
     }
+
 }

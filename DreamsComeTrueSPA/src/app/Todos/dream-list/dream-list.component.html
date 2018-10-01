@@ -24,14 +24,14 @@
                 <app-todo-list-item *ngFor="let todoItem of dreamList" [item]="todoItem" [unit]="unit"></app-todo-list-item>
           </ul>
     </div>
-    <div *ngIf="!dreamList || dreamList.length == 0" class="card text-center offset-3 col-lg-6 mt-8">
+    <div *ngIf="!dreamList || dreamList.length == 0" class="card text-center sm-nooffset offset-3 col-lg-6 mt-8">
       <div class="card-header">
         Im więcej marzeń tym lepiej!
       </div>
       <div class="card-body">
         <h5 class="card-title">To naprawdę nie jest trudne</h5>
         <p class="card-text">Spokojnie zastanówcie się wspólnie co chcecie osiągnąć, a to się spełni!</p>
-        <a [routerLink]="['/zarzadzanie-celami']" routerLinkActive="router-link-active"  class="btn btn-success">Przejdź do zarządzania</a>
+        <a [routerLink]="['/zarzadzanie-marzeniami']" routerLinkActive="router-link-active"  class="btn btn-success">Przejdź do zarządzania</a>
       </div>
     </div>
 
