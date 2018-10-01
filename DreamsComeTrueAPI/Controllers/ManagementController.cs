@@ -43,7 +43,8 @@ namespace DreamsComeTrueAPI.Controllers
             var item = new TodoItem 
             {
                 Objective = todoItemDto.Objective,
-                Cost = todoItemDto.Cost
+                Cost = todoItemDto.Cost,
+                IsOneTime = todoItemDto.IsOneTime
             };
 
             if(await _todoRepository.AddTodoItem(item) == null)
@@ -169,6 +170,20 @@ namespace DreamsComeTrueAPI.Controllers
                 return BadRequest();
 
             return Ok();
+        }
+
+        [HttpPut("EditItem")]
+        public async Task<IActionResult> EditItem(TodoItemDto todoItemDto)
+        {
+            var item = await _todoRepository.GetTodoItem(todoItemDto.Id);
+
+            item.Objective = todoItemDto.Objective;
+            item.Cost = todoItemDto.Cost;
+
+            if(await _dCTRepository.SaveAll())
+                return Ok();
+
+            return BadRequest();
         }
 
     }

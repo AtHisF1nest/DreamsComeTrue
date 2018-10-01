@@ -3,6 +3,9 @@
     <div class="col-lg-2 col-sm-12 category header-category" (click)="resetCategories()">
       Wszystkie
     </div>
+    <div *ngIf="showHistoryButton" class="col-lg-2 col-sm-12 category header-category" (click)="showDoneButton()">
+      Zakończone
+      </div>
     <div *ngFor="let category of categories" class="col-lg-2 col-sm-3 category" [style.color]="category.color"
            [style.background-color]="category.backgroundColor" (click)="toggleActive(category)" [class.active]="category.active">
       <div>{{ category.name }}</div>

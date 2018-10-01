@@ -50,6 +50,16 @@ namespace DreamsComeTrueAPI.Controllers
             return res;
         }
 
+        [HttpPost("GetDreamsByCategories")]
+        public async Task<IEnumerable<TodoItemDto>> GetDreamsByCategories(CategoryDto[] categories)
+        {
+            var todoItems = await _todoRepository.GetTodoItems(CategoryType.Marzenia, categories.Select(x => x.Id).ToList());
+
+            var res = _mapper.Map<IEnumerable<TodoItemDto>>(todoItems);
+
+            return res;
+        }
+
         [HttpGet("{id}")]
         public async Task<TodoItemDto> GetItem(int id)
         {
@@ -93,7 +103,7 @@ namespace DreamsComeTrueAPI.Controllers
         {
             _actualUserLogin = HttpContext.User.Identity.Name;
 
-            var todoItem = await _todoRepository.GetTodoItem(id, CategoryType.Marzenia);
+            var todoItem = await _todoRepository.GetTodoItem(id);
 
             if(todoItem.UsersPair.User?.Login != _actualUserLogin && todoItem.UsersPair.User2?.Login != _actualUserLogin)
                 return null;
@@ -109,6 +119,9 @@ namespace DreamsComeTrueAPI.Controllers
             var categories = await _todoRepository.GetCategories(CategoryType.Marzenia);
 
             var res = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+            foreach (var item in res)
+                item.CountOfItems = (await _todoRepository.GetConnectedTodoItems(item.Id, CategoryType.Marzenia)).Count();
 
             return res;
         }
@@ -159,6 +172,16 @@ namespace DreamsComeTrueAPI.Controllers
             var histories = await _todoRepository.GetHistoryOfTodo(id);
 
             var res = _mapper.Map<IEnumerable<HistoryDto>>(histories);
+
+            return res;
+        }
+
+        [HttpGet("GetDoneTodoItems")]
+        public async Task<IEnumerable<TodoItemDto>> GetDoneTodoItems()
+        {
+            var todos = await _todoRepository.GetDoneTodoItems();
+
+            var res = _mapper.Map<IEnumerable<TodoItemDto>>(todos);
 
             return res;
         }

@@ -1,3 +1,46 @@
-<p>
-  management-dreams-connections works!
-</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Zarządzanie połączeniami marzeń</h1>
+    </div>
+  </div>
+  <div class="row panels mt-5">
+    <div class="col-md-5 panel panel-left col-6">
+      <div class="row list-group">
+        <button *ngFor="let item of categoryList" type="button" class="list-group-item list-group-item-action" [class.active]="item.active" (click)="setActiveCategory(item)">
+          {{item.name}} 
+          <span class="badge badge-info badge-pill">{{item.countOfItems}}</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-1 panel-management sm-hide">
+    </div>
+      <div class="col-md-5 panel panel-right col-6">
+        <div class="row panel-top panel-smaller">
+          <div class="col-md-12">
+              <div class="row list-group">
+                  <button *ngFor="let item of connectedTodoList" type="button" class="list-group-item list-group-item-action" [class.active]="item.active" (click)="setActiveTodoConnected(item)">
+                    <b>{{item.id}}.</b>  {{item.objective}} 
+                  </button>
+              </div>
+          </div>
+        </div>
+        <div class="row panel-middle">
+          <div class="col-md-6"><span><i class="fa fa-chevron-circle-up" (click)="connect()"></i></span></div>
+          <div class="col-md-6"><span><i class="fa fa-chevron-circle-down" (click)="unConnect()"></i></span></div>
+        </div>
+        <div class="row panel-bottom panel-smaller ">
+          <div class="col-md-12">
+              <div class="row list-group">
+                  <button *ngFor="let item of todoList" type="button" class="list-group-item list-group-item-action" [class.active]="item.active" (click)="setActiveTodo(item)">
+                    <b>{{item.id}}.</b>  {{item.objective}} 
+                  </button>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="row mt-8">
+  <div class="col-md-12"></div>
+</div>

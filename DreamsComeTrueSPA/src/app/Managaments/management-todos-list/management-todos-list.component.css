@@ -3,6 +3,10 @@ table tr:hover .actions span {
     opacity: 1;
 }
 
+table tr:hover .input-edit input {
+    background-color: #fbfbfb;
+}
+
 .actions span {
     display: block;
     margin: 0.5rem;
@@ -37,3 +41,23 @@ table .cost {
     text-align: left;
 }
 
+.input-edit input, .input-edit textarea {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    display: inline;
+    border-radius: 5px;
+}
+
+
+.input-short input {
+    width:30px;
+}
+
+.input-center input, .input-center textarea {
+    text-align: center;
+}
+
+.input-long input, .input-long textarea {
+    width: 100%;    
+    padding: 5px 5px;
+}

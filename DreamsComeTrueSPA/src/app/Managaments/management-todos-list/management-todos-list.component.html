@@ -19,12 +19,12 @@
         <tbody>
           <tr *ngFor="let item of todoList">
             <td>{{item.author.name | titlecase}}</td>
-            <td *ngIf="!options.isDream" class="cost">{{item.cost}} <span *ngIf="item.cost">h</span></td>
-            <td *ngIf="options.isDream" class="cost-dream">{{item.cost}} <span *ngIf="item.cost">zł</span></td>
+            <td *ngIf="!options.isDream" class="cost input-edit input-short input-center"><input type="text" [(ngModel)]="item.cost" name="cost"> <span *ngIf="item.cost">h</span></td>
+            <td *ngIf="options.isDream" class="cost-dream input-edit input-short input-center"><input type="text" [(ngModel)]="item.cost" name="cost"> <span *ngIf="item.cost">zł</span></td>
             <td class="sm-hide" *ngIf="!options.isDream" >{{item.created}}</td>
             <td class="sm-hide" *ngIf="!options.isDream" >{{item.lastDone}}</td>
-            <td>{{item.objective}}</td>
-            <td class="actions"><span><i class="fa fa-edit blue"></i></span><span (click)="delete(item.id)"><i class="fa fa-times red"></i></span></td>
+            <td class="input-edit input-long"><textarea type="text" [(ngModel)]="item.objective" name="objective"></textarea></td>
+            <td class="actions"><span ><i (click)="edit(item)" class="fa fa-edit blue"></i></span><span ><i (click)="delete(item.id)" class="fa fa-times red"></i></span></td>
           </tr>
         </tbody>
       </table>

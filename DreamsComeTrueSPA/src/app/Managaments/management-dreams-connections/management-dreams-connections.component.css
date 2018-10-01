@@ -1,0 +1,108 @@
+.panels {
+    height: 600px;
+}
+
+.panel {
+    height: 600px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    transition: .3s all;
+    border: 1px solid white;
+    overflow-y: hidden;
+}
+
+.panel-management {
+    height: 600px;
+}
+
+.panel:hover {
+    border: 1px solid rgb(17, 88, 170);
+}
+
+.arrow {
+    font-size: 2.5rem;
+    text-align: center;
+    transition: .3s all;
+}
+
+.arrow:hover {
+    cursor: pointer;
+    color: rgb(17, 88, 170);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.11), 0 6px 6px rgba(0,0,0,0.11);
+}
+
+.top-arrow {
+    margin-top: 14rem;
+}
+
+.middle-arrow {
+    margin-top: 15rem;
+}
+
+.badge {
+    margin-left: .4rem;
+}
+
+.list-group-item-action {
+    transition: .3s all;
+}
+
+.list-group-item-action:hover {
+    cursor: pointer;
+    background-color: rgb(17, 88, 170);
+    color: white;
+}
+
+.list-group-item-action.active {
+    background-color: rgb(17, 88, 170);
+    color: white;
+}
+
+.list-group-item-action:hover .badge {
+    background-color: white;
+    color: rgb(17, 88, 170);
+}
+
+.list-group-item-action.active .badge {
+    background-color: white;
+    color: rgb(17, 88, 170);
+}
+
+.panel-smaller {
+    height:45%;
+    overflow-y: auto;
+}
+
+.panel-bottom {
+    border-top: 1px solid #dadada;
+}
+
+.panel-top {
+    border-bottom: 1px solid #dadada;
+}
+
+.panel-middle {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.panel-middle i {
+    font-size: 1.9rem;
+    color: rgb(17, 88, 170);
+    transition: .3s all;
+}
+
+.panel-middle i:hover {
+    color: rgb(0, 23, 100);
+    cursor: pointer;
+}
+
+.panel-left {
+    overflow-y: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    button {
+        zoom: .8 !important;
+    }
+}

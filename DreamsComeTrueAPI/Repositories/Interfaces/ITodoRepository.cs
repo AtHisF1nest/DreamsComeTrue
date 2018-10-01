@@ -11,7 +11,7 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<IEnumerable<TodoItem>> GetTodoItems(CategoryType type = CategoryType.NaDzis, List<int> categoryIds = null);
          Task<IEnumerable<TodoItem>> GetConnectedTodoItems(int categoryId, CategoryType type = CategoryType.NaDzis);
          Task<IEnumerable<TodoItem>> GetNotConnectedTodoItems(int categoryId, CategoryType type = CategoryType.NaDzis);
-         Task<TodoItem> GetTodoItem(int id, CategoryType type = CategoryType.NaDzis);
+         Task<TodoItem> GetTodoItem(int id);
          Task<IEnumerable<Category>> GetCategories(CategoryType type = CategoryType.NaDzis);
          Task<Category> AddCategory(Category category, CategoryType type = CategoryType.NaDzis);
          Task<bool> DeleteCategory(int id);
@@ -22,5 +22,6 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<IEnumerable<History>> GetHistoryOfTodo(int todoId);
          Task<bool> RealizeTodo(int id, string date);
          Task<bool> DeleteHistory(int id);
+         Task<IEnumerable<TodoItem>> GetDoneTodoItems();
     }
 }

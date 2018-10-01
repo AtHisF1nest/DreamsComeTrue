@@ -7,5 +7,6 @@ export interface Todo {
     author: User;
     created: string;
     lastDone: string;
+    isOneTime: boolean;
     active?: boolean;
 }

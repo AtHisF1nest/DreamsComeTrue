@@ -12,7 +12,9 @@ import { AlertifyService } from '../_services/alertify.service';
 export class CategoriesComponent implements OnInit {
 
   @Output() search = new EventEmitter();
+  @Output() showDone = new EventEmitter();
   @Input() categories: Category[];
+  @Input() showHistoryButton: Boolean;
   selectedCategories: Category[];
 
   constructor(private todosService: TodosService, private alertify: AlertifyService) { }
@@ -24,6 +26,11 @@ export class CategoriesComponent implements OnInit {
   resetCategories() {
     this.categories.forEach(x => x.active = false);
     this.emitSearch();
+  }
+
+  showDoneButton() {
+    this.resetCategories();
+    this.showDone.emit();
   }
 
   toggleActive(item: Category) {

@@ -12,5 +12,6 @@ namespace DreamsComeTrueAPI.Dtos
         public UserForPreviewDto Author { get; set; }
         public string Created { get; set; }
         public string LastDone { get; set; }
+        public bool IsOneTime { get; set; }
     }
 }

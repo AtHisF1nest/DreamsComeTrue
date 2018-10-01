@@ -7,6 +7,8 @@ namespace DreamsComeTrueAPI.Helpers
 {
     public class AutoMapperProfiles : Profile
     {
+        private const string DATE_FORMAT = "yyyy-MM-dd";
+
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForPreviewDto>()
@@ -27,10 +29,13 @@ namespace DreamsComeTrueAPI.Helpers
                 .ForMember(dest => dest.LastDone, opt => {
                     opt.ResolveUsing(src => {
                         if(src.LastDone != null)
-                            return ((DateTime)src.LastDone).ToString("yyyy-MM-dd");
+                            return ((DateTime)src.LastDone).ToString(DATE_FORMAT);
                         else
                             return string.Empty;
                     });
+                })
+                .ForMember(dest => dest.Created, opt => {
+                    opt.MapFrom(src => src.Created.ToString(DATE_FORMAT));
                 });
              CreateMap<History, HistoryDto>()
                 .ForMember(dest => dest.Done, opt => {
