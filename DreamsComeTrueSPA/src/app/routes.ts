@@ -23,6 +23,8 @@ import { DreamListComponent } from './Todos/dream-list/dream-list.component';
 import { ManagementDreamsConnectionsComponent } from './Managaments/management-dreams-connections/management-dreams-connections.component';
 import { ManagementTodosConnectionsComponent } from './Managaments/management-todos-connections/management-todos-connections.component';
 import { HistoryOfTodoResolver } from './_resolvers/history-of-todo.resolver';
+import { UserListResolver } from './_resolvers/user-list.resolver';
+import { FindPairComponent } from './find-pair/find-pair.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -35,6 +37,8 @@ export const appRoutes: Routes = [
             resolve: {todoList: TodoListResolver} },
         { path: 'nasze-marzenia', component: DreamListComponent,
             resolve: {dreamList: DreamListResolver} },
+        { path: 'nasze-marzenia/:id', component: TodoListDetailComponent,
+            resolve: {dreamItem: TodoListDetailResolver, historyOfDreamItem: HistoryOfTodoResolver} },
         { path: 'nasze-cele/:id', component: TodoListDetailComponent,
             resolve: {todoItem: TodoListDetailResolver, historyOfTodoItem: HistoryOfTodoResolver} },
         { path: 'zarzadzanie', component: ManagementComponent,
@@ -50,8 +54,10 @@ export const appRoutes: Routes = [
         { path: 'zarzadzanie-polaczeniami-celow', component: ManagementTodosConnectionsComponent,
             resolve: {categoryList: ManagementCategoriesResolver} },
         { path: 'zarzadzanie-polaczeniami-marzen', component: ManagementDreamsConnectionsComponent,
-            resolve: {categoryList: ManagementDreamsCategoriesComponent} },
-        { path: 'kalendarz', component: CalendarComponent }
+            resolve: {categoryList: ManagementDreamsCategoriesResolver} },
+        { path: 'kalendarz', component: CalendarComponent },
+        { path: 'znajdz-pare', component: FindPairComponent,
+            resolve: {userList: UserListResolver} }
       ]
     },
     { path: 'dowiedz-sie-wiecej', component: InformationComponent },

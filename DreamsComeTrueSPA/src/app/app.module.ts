@@ -45,6 +45,8 @@ import { ManagementDreamsConnectionsComponent } from './Managaments/management-d
 import { ManagementTodosConnectionsComponent } from './Managaments/management-todos-connections/management-todos-connections.component';
 import { HistoryOfTodoResolver } from './_resolvers/history-of-todo.resolver';
 import { RandomizeTodoComponent } from './randomize-todo/randomize-todo.component';
+import { UserListResolver } from './_resolvers/user-list.resolver';
+import { FindPairComponent } from './find-pair/find-pair.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -72,7 +74,8 @@ export function tokenGetter() {
       DreamListComponent,
       ManagementDreamsConnectionsComponent,
       ManagementTodosConnectionsComponent,
-      RandomizeTodoComponent
+      RandomizeTodoComponent,
+      FindPairComponent
    ],
    imports: [
       BrowserModule,
@@ -106,7 +109,8 @@ export function tokenGetter() {
       ManagementDreamsResolver,
       ManagementDreamsCategoriesResolver,
       DreamListResolver,
-      HistoryOfTodoResolver
+      HistoryOfTodoResolver,
+      UserListResolver
    ],
    bootstrap: [
       AppComponent

@@ -67,4 +67,8 @@ export class ManagementService {
   deleteHistory(id) {
     return this.http.delete(this.baseUrl + 'DeleteHistory/' + id);
   }
+
+  editItem(item) {
+    return this.http.put(this.baseUrl + 'EditItem', item);
+  }
 }

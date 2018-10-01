@@ -40,15 +40,15 @@ namespace DreamsComeTrueAPI.Repositories
                 categoryIds = null;
 
             return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
-                .Where(x => x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                .Where(x => (!x.IsOneTime || (x.IsOneTime && x.LastDone == null)) && x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)
                         && (categoryIds == null || bindings.Contains(x.Id))).ToListAsync();
         }
 
-        public async Task<TodoItem> GetTodoItem(int id, CategoryType type = CategoryType.NaDzis)
+        public async Task<TodoItem> GetTodoItem(int id)
         {
             return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
-                .Include(x => x.UsersPair.User).Include(x => x.UsersPair.User2).FirstOrDefaultAsync(x => x.CategoryType == type && x.Id == id);
+                .Include(x => x.UsersPair.User).Include(x => x.UsersPair.User2).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Category>> GetCategories(CategoryType type = CategoryType.NaDzis)
@@ -108,7 +108,7 @@ namespace DreamsComeTrueAPI.Repositories
             var connections = await _context.CategoryTodoItemBindings.Include(x => x.TodoItem).Where(x => x.Category.Id == categoryId).ToListAsync();
 
             return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
-                .Where(x => connections.Any(y => x.Id == y.TodoItem.Id) && x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                .Where(x => (!x.IsOneTime || (x.IsOneTime && x.LastDone == null)) && connections.Any(y => x.Id == y.TodoItem.Id) && x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
         }
 
@@ -117,7 +117,7 @@ namespace DreamsComeTrueAPI.Repositories
             var connections = await _context.CategoryTodoItemBindings.Include(x => x.TodoItem).Where(x => x.Category.Id == categoryId).ToListAsync();
 
             return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
-                .Where(x => !connections.Any(y => x.Id == y.TodoItem.Id) && x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                .Where(x => (!x.IsOneTime || (x.IsOneTime && x.LastDone == null)) && !connections.Any(y => x.Id == y.TodoItem.Id) && x.CategoryType == type && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
         }
 
@@ -182,6 +182,13 @@ namespace DreamsComeTrueAPI.Repositories
             _context.Histories.Remove(history);
 
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<TodoItem>> GetDoneTodoItems()
+        {
+                return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
+                .Where(x => (x.IsOneTime && x.LastDone != null) && x.CategoryType == CategoryType.NaDzis && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
+                        && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
         }
     }
 }

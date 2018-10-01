@@ -12,6 +12,7 @@ namespace DreamsComeTrueAPI.Models
         public DateTime Created { get; set; }
         public DateTime? LastDone { get; set; }
         public CategoryType CategoryType { get; set; } = CategoryType.NaDzis;
+        public bool IsOneTime { get; set; }
         public virtual User Author { get; set; }
         public virtual UsersPair UsersPair { get; set; }
         public int UsersPairId { get; set; }

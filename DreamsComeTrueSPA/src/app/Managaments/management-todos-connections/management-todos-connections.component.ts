@@ -6,7 +6,6 @@ import { AlertifyService } from '../../_services/alertify.service';
 import { TodosService } from '../../_services/todos.service';
 import { ManagementService } from '../../_services/management.service';
 import { TodoConnection } from '../../_models/todoConnection';
-import { isDefaultChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
   selector: 'app-management-todos-connections',

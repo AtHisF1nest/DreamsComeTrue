@@ -24,6 +24,10 @@ export class TodosService {
     return this.http.post<Todo[]>(this.baseUrl + 'GetTodosByCategories', categories);
   }
 
+  getDreamsByCategories(categories: Category[]): Observable<Todo[]> {
+    return this.http.post<Todo[]>(this.baseUrl + 'GetDreamsByCategories', categories);
+  }
+
   getNotConnectedItems(categoryId): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.baseUrl + 'GetNotConnectedItems/' + categoryId);
   }
@@ -62,6 +66,10 @@ export class TodosService {
 
   getHistory(id): Observable<HistoryDto[]> {
     return this.http.get<HistoryDto[]>(this.baseUrl + 'GetHistoryOfTodo/' + id);
+  }
+
+  getDoneItems(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.baseUrl + 'GetDoneTodoItems');
   }
 
 }

@@ -22,3 +22,13 @@ form input.btn {
     border-color: #e91e63;
 }
 
+.check-block input {
+    height: 29px;
+    width: 29px;
+    margin-top: 2.3rem;
+    margin-left: -5rem;
+    cursor: pointer;
+}
+.check-block {
+    text-align: center;
+}

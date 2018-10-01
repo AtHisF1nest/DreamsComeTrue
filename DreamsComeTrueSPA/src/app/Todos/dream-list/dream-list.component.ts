@@ -41,4 +41,16 @@ export class DreamListComponent implements OnInit {
     });
   }
 
+  searchDreams(categories: Category[]) {
+    this.todosService.getDreamsByCategories(categories).subscribe(response => {
+      if (this.dreamList) {
+        this.dreamList = response;
+      } else {
+        this.alertify.message('Brak wystąpień, spróbuj zmienić kategorie!');
+      }
+    }, error => {
+      this.alertify.error('Wystąpił problem podczas filtrowania danych.');
+    });
+  }
+
 }

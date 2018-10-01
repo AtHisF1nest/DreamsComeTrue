@@ -54,4 +54,16 @@ export class TodoListComponent implements OnInit {
     });
   }
 
+  showDoneTodos() {
+    this.todosService.getDoneItems().subscribe(response => {
+      if (response) {
+        this.todoList = response;
+      } else {
+        this.alertify.message('Brak wystąpień');
+      }
+    }, error => {
+      this.alertify.error('Wystąpił problem podczas filtrowania danych.');
+    });
+  }
+
 }
