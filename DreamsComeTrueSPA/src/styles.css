@@ -109,6 +109,10 @@ body {
     }
 
     .sm-table {
-        zoom:.7;
+        zoom:.7 !important;
+    }
+
+    .sm-nooffset {
+        margin-left: 0px !important;
     }
 }
