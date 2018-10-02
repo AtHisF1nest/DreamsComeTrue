@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using DreamsComeTrueAPI.Dtos;
 using DreamsComeTrueAPI.Models;
+using DreamsComeTrueAPI.Repositories.Interfaces;
 
 namespace DreamsComeTrueAPI.Helpers
 {
@@ -11,6 +12,7 @@ namespace DreamsComeTrueAPI.Helpers
 
         public AutoMapperProfiles()
         {
+
             CreateMap<User, UserForPreviewDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
                     opt.MapFrom(src => src.Photo.Url);

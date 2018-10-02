@@ -3,4 +3,5 @@ export interface User {
     login: string;
     name?: string;
     photoUrl?: string;
+    isInvited?: boolean;
 }

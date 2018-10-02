@@ -14,8 +14,9 @@ export class UserListResolver implements Resolve<User[]> {
         private alertify: AlertifyService, private userService: UserService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
-        return this.userService.getUsers().pipe(
+        return this.userService.getUsers('').pipe(
             catchError(error => {
+                console.log(error);
                 this.alertify.error('Wystąpił problem przy pobieraniu danych.');
                 this.router.navigate(['']);
                 return of(null);

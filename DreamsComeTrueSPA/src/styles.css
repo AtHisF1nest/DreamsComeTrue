@@ -68,6 +68,10 @@ div.scrollable-y {
     overflow-y: auto;
 }
 
+div.scrollable-y.shorter {
+    max-height: 500px;
+}
+
 body {
     overflow-x: hidden !important;
 }

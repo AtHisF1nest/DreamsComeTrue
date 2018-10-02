@@ -4,14 +4,16 @@ using DreamsComeTrueAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DreamsComeTrueAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20181002165348_invitations")]
+    partial class invitations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,29 +175,6 @@ namespace DreamsComeTrueAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DreamsComeTrueAPI.Models.UserInvitation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<int>("InvitationType");
-
-                    b.Property<int?>("InvitedUserId");
-
-                    b.Property<int?>("UserInvitatingId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InvitedUserId");
-
-                    b.HasIndex("UserInvitatingId");
-
-                    b.ToTable("UserInvitations");
-                });
-
             modelBuilder.Entity("DreamsComeTrueAPI.Models.UsersPair", b =>
                 {
                     b.Property<int>("Id")
@@ -265,17 +244,6 @@ namespace DreamsComeTrueAPI.Migrations
                         .WithMany()
                         .HasForeignKey("UsersPairId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DreamsComeTrueAPI.Models.UserInvitation", b =>
-                {
-                    b.HasOne("DreamsComeTrueAPI.Models.User", "InvitedUser")
-                        .WithMany()
-                        .HasForeignKey("InvitedUserId");
-
-                    b.HasOne("DreamsComeTrueAPI.Models.User", "UserInvitating")
-                        .WithMany()
-                        .HasForeignKey("UserInvitatingId");
                 });
 
             modelBuilder.Entity("DreamsComeTrueAPI.Models.UsersPair", b =>

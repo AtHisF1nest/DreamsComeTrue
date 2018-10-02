@@ -15,5 +15,6 @@ namespace DreamsComeTrueAPI.Data
         public DbSet<UsersPair> UsersPairs { get; set; }
         public DbSet<ManagementType> ManagementTypes { get; set; }
         public DbSet<History> Histories { get; set; }
+        public DbSet<UserInvitation> UserInvitations { get; set; }
     }
 }
