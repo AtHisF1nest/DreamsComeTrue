@@ -5,7 +5,7 @@ namespace DreamsComeTrueAPI.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base (options) { }
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<TodoItem> TodoItems { get; set; }
@@ -19,7 +19,7 @@ namespace DreamsComeTrueAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().Property(x => x.Id).ForNpgsqlUseSequenceHiLo();
+            modelBuilder.ForNpgsqlUseIdentityColumns();
         }
     }
 }
