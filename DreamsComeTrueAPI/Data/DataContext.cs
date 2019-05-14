@@ -16,5 +16,10 @@ namespace DreamsComeTrueAPI.Data
         public DbSet<ManagementType> ManagementTypes { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<UserInvitation> UserInvitations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property(x => x.Id).ForNpgsqlUseSequenceHiLo();
+        }
     }
 }
