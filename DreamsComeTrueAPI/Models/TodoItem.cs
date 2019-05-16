@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using DreamsComeTrueAPI.Models.Enums;
 
 namespace DreamsComeTrueAPI.Models
 {
     public class TodoItem
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Objective { get; set; }
         public string Cost { get; set; }
