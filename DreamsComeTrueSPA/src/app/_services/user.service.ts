@@ -10,6 +10,7 @@ import { User } from '../_models/user';
 export class UserService {
 
   baseUrl = environment.apiUrl + 'users/';
+  currentUser: User;
 
 constructor(private http: HttpClient) { }
 
@@ -26,5 +27,24 @@ constructor(private http: HttpClient) { }
 
   inviteUser(user) {
     return this.http.post(this.baseUrl + 'InviteUser', user);
+  }
+
+  editAvatar(file: File): any {
+    const formData: FormData = new FormData();
+    formData.append('fileKey', file, file.name);
+    return this.http.post(this.baseUrl + 'EditAvatar', formData);
+  }
+
+  editUser(user: User) {
+    return this.http.post(this.baseUrl + 'EditUser', user);
+  }
+
+  getCurrentUser(): User {
+    if (!this.currentUser) {
+      this.http.get<User>(this.baseUrl + 'GetCurrentUser').subscribe(res => {
+        this.currentUser = res;
+      });
+      return this.currentUser;
+    }
   }
 }

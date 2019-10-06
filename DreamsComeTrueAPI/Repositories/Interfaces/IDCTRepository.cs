@@ -11,9 +11,12 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<bool> SaveAll();
          Task<IEnumerable<User>> GetUsers(string name);
          Task<User> GetUser(int id);
+         Task<User> GetCurrentUser();
          Task<IEnumerable<ManagementType>> GetManagementTypes();
          Task<bool> InviteUser(int id);
          Task<bool> UnInviteUser(int id);
          Task<bool> IsInvited(int id);
+        Task<bool> Exists(string login);
+        Task<Photo> UploadPhoto(string fileName, int userId);
     }
 }

@@ -25,6 +25,7 @@ import { ManagementTodosConnectionsComponent } from './Managaments/management-to
 import { HistoryOfTodoResolver } from './_resolvers/history-of-todo.resolver';
 import { UserListResolver } from './_resolvers/user-list.resolver';
 import { FindPairComponent } from './find-pair/find-pair.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -57,7 +58,8 @@ export const appRoutes: Routes = [
             resolve: {categoryList: ManagementDreamsCategoriesResolver} },
         { path: 'kalendarz', component: CalendarComponent },
         { path: 'znajdz-pare', component: FindPairComponent,
-            resolve: {userList: UserListResolver} }
+            resolve: {userList: UserListResolver} },
+        { path: 'edycja-profilu', component: EditProfileComponent }
       ]
     },
     { path: 'dowiedz-sie-wiecej', component: InformationComponent },

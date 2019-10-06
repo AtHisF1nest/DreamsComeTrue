@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -47,6 +48,7 @@ import { HistoryOfTodoResolver } from './_resolvers/history-of-todo.resolver';
 import { RandomizeTodoComponent } from './randomize-todo/randomize-todo.component';
 import { UserListResolver } from './_resolvers/user-list.resolver';
 import { FindPairComponent } from './find-pair/find-pair.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -75,23 +77,24 @@ export function tokenGetter() {
       ManagementDreamsConnectionsComponent,
       ManagementTodosConnectionsComponent,
       RandomizeTodoComponent,
-      FindPairComponent
+      FindPairComponent,
+      EditProfileComponent
    ],
    imports: [
-      BrowserModule,
+      JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter,
+          whitelistedDomains: ['localhost:5000'],
+          blacklistedRoutes: ['localhost:5000/api/auth']
+      }}),
       HttpClientModule,
       FormsModule,
+      BrowserModule,
+      BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TimepickerModule.forRoot(),
-      RouterModule.forRoot(appRoutes),
-      JwtModule.forRoot({
-          config: {
-              tokenGetter: tokenGetter,
-              whitelistedDomains: ['localhost:5000'],
-              blacklistedRoutes: ['localhost:5000/api/auth']
-          }
-      })
+      RouterModule.forRoot(appRoutes)
    ],
    providers: [
       AuthService,

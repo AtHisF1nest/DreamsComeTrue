@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/DreamsComeTrueAPI/bin/Debug/netcoreapp2.1/DreamsComeTrueAPI.dll",
+            "program": "${workspaceFolder}/DreamsComeTrueAPI/bin/Debug/netcoreapp2.2/DreamsComeTrueAPI.dll",
             "args": [],
             "cwd": "${workspaceFolder}/DreamsComeTrueAPI",
             "stopAtEntry": false,

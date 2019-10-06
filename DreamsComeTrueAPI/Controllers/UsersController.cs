@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using DreamsComeTrueAPI.Dtos;
 using DreamsComeTrueAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DreamsComeTrueAPI.Controllers
@@ -15,8 +18,12 @@ namespace DreamsComeTrueAPI.Controllers
     {
         private readonly IDCTRepository _dctRepository;
         private readonly IMapper _mapper;
-        public UsersController(IDCTRepository dctRepository, IMapper mapper)
+        private readonly IHttpContextAccessor _httpContextAcc;
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public UsersController(IDCTRepository dctRepository, IMapper mapper, IHttpContextAccessor httpContextAcc, IHostingEnvironment hostingEnvironment)
         {
+            _hostingEnvironment = hostingEnvironment;
+            _httpContextAcc = httpContextAcc;
             _mapper = mapper;
             _dctRepository = dctRepository;
         }
@@ -43,6 +50,12 @@ namespace DreamsComeTrueAPI.Controllers
             return Ok(usersToReturn);
         }
 
+        [HttpGet("GetCurrentUser")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            return Ok(_mapper.Map<UserForPreviewDto>(await _dctRepository.GetCurrentUser()));
+        }
+
         [HttpGet("getuser/{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
@@ -56,7 +69,7 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpPost("InviteUser")]
         public async Task<IActionResult> InviteUser(UserForPreviewDto userForPreviewDto)
         {
-            if(await _dctRepository.InviteUser(userForPreviewDto.Id))
+            if (await _dctRepository.InviteUser(userForPreviewDto.Id))
                 return Ok();
             else
                 return BadRequest();
@@ -65,10 +78,53 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpDelete("UnInviteUser/{id}")]
         public async Task<IActionResult> UnInviteUser(int id)
         {
-            if(await _dctRepository.UnInviteUser(id))
+            if (await _dctRepository.UnInviteUser(id))
                 return Ok();
-            else 
+            else
                 return BadRequest();
+        }
+
+        [HttpPost("EditAvatar")]
+        public async Task<IActionResult> EditAvatar()
+        {
+            var userFromRepo = await _dctRepository.GetCurrentUser();
+
+            var file = _httpContextAcc.HttpContext.Request.Form.Files[0];
+            if (file.Length > 0)
+            {
+                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "assets", "uploads");
+                var fileName = file.FileName.Replace(".", $"__{ userFromRepo.Id }.");
+                var filePath = Path.Combine(uploads, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+                    await file.CopyToAsync(fileStream);
+                }
+                var photo = await _dctRepository.UploadPhoto(fileName, userFromRepo.Id);
+                userFromRepo.Photo = photo;
+                return Ok(_mapper.Map<UserForPreviewDto>(userFromRepo));
+            }
+
+            return BadRequest("No file uploaded.");
+        }
+
+        [HttpPost("EditUser")]
+        public async Task<IActionResult> EditUser(UserForEditDto user)
+        {
+            var userFromRepo = await _dctRepository.GetCurrentUser();
+
+            if (!string.IsNullOrWhiteSpace(user.Name) && userFromRepo.Name != user.Name)
+            {
+                if (user.Name.Length > 4)
+                {
+                    userFromRepo.Name = user.Name;
+                }
+                else
+                    return BadRequest("Taka nazwa jest zbyt krótka!");
+            }
+
+            if (await _dctRepository.SaveAll())
+                return Ok(userFromRepo);
+            else
+                return BadRequest("Coś poszło nie tak..");
         }
     }
 }

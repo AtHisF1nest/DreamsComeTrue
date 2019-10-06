@@ -15,7 +15,7 @@ namespace DreamsComeTrueAPI.Helpers
 
             CreateMap<User, UserForPreviewDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
-                    opt.MapFrom(src => src.Photo.Url);
+                    opt.MapFrom(src => $"/assets/uploads/{ src.Photo.Url }");
                 });
             CreateMap<Category, CategoryDto>()
                 .ForMember(dest => dest.CategoryType, opt => {

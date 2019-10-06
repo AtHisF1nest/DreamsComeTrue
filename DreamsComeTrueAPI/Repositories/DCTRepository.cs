@@ -42,11 +42,37 @@ namespace DreamsComeTrueAPI.Repositories
             return types;
         }
 
+        public async Task<User> GetCurrentUser()
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Login == _actualUserLogin);
+        }
+
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.Include(x => x.Photo).FirstOrDefaultAsync(x => x.Id == id);
 
             return user;
+        }
+
+        public async Task<Photo> UploadPhoto(string fileName, int userId)
+        {
+            var photo = new Photo() {
+                Url = fileName,
+                UserId = userId
+            };
+
+            var existingPhoto = await _context.Photos.FirstOrDefaultAsync(x => x.UserId == userId);
+            if (existingPhoto != null)
+            {
+                _context.Photos.Remove(existingPhoto);
+                await _context.SaveChangesAsync();
+            }
+            
+            await _context.Photos.AddAsync(photo);
+
+            await _context.SaveChangesAsync();
+
+            return photo;
         }
 
         public async Task<IEnumerable<User>> GetUsers(string name)
@@ -56,6 +82,11 @@ namespace DreamsComeTrueAPI.Repositories
             else
                 return await _context.Users.Include(x => x.Photo)
                     .Where(x => (!string.IsNullOrEmpty(name) && x.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase)) || x.Login.Contains(name, StringComparison.InvariantCultureIgnoreCase)).ToListAsync();
+        }
+
+        public async Task<bool> Exists(string login)
+        {
+            return await _context.Users.AnyAsync(x => x.Login.ToLower() == login.ToLower());
         }
 
         public async Task<bool> InviteUser(int id)
