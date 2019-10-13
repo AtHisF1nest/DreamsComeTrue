@@ -12,6 +12,7 @@ import { UserService } from '../_services/user.service';
 export class FindPairComponent implements OnInit {
 
   userList: User[];
+  invitations: User[];
   userModel: any = { name: '' };
 
   constructor(private route: ActivatedRoute, private router: Router, private alertify: AlertifyService,
@@ -20,6 +21,10 @@ export class FindPairComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.userList = data['userList'];
+      if (this.userList.length === 0) {
+        this.alertify.message('Masz już swoją parę!');
+        this.router.navigate(['/nasze-cele']);
+      }
       if (!this.userList) {
         this.alertify.error('Wystąpił problem przy pobieraniu danych.');
         this.router.navigate(['']);
@@ -46,13 +51,28 @@ export class FindPairComponent implements OnInit {
   inviteUser(user: User) {
     this.userService.inviteUser(user).subscribe(() => {
       this.alertify.message('Zaproszono.');
+      user.isInvited = true;
     }, error => {
-      this.alertify.error('Nie udało się zaprosić.');
+      this.alertify.error('Nie udało się zaprosić');
+    });
+  }
+
+  acceptInvite(userId) {
+    this.userService.acceptInvite(userId).subscribe(res => {
+      this.alertify.success('Pomyślnie przyjęto zaproszenie, jesteście parą!');
+      this.router.navigate(['/nasze-cele']);
+    }, error => {
+      this.alertify.error('Coś poszło nie tak');
     });
   }
 
   unInviteUser(user: User) {
-
+    this.userService.unInviteUser(user).subscribe(() => {
+      this.alertify.success('Pomyślnie usunięto zaproszenie');
+      user.isInvited = false;
+    }, error => {
+      this.alertify.error('Nie udało się wykonać akcji');
+    });
   }
 
 }

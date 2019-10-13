@@ -52,6 +52,7 @@ namespace DreamsComeTrueAPI.Repositories
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.Name = user.Login;
 
             await _context.Users.AddAsync(user);
             await _context.UsersPairs.AddAsync(new UsersPair {

@@ -31,9 +31,14 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _dctRepository.GetUsers(null);
+            var users = await _dctRepository.GetUsersForInvite(null);
 
             var usersToReturn = _mapper.Map<IEnumerable<UserForPreviewDto>>(users);
+            foreach (var user in usersToReturn)
+            {
+                user.IsInvited = await _dctRepository.IsInvited(user.Id);
+                user.InvitedYou = await _dctRepository.Inviting(user.Id);
+            }
 
             return Ok(usersToReturn);
         }
@@ -41,11 +46,14 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpGet("{name}")]
         public async Task<IActionResult> GetUsers(string name)
         {
-            var users = await _dctRepository.GetUsers(name);
+            var users = await _dctRepository.GetUsersForInvite(name);
 
             var usersToReturn = _mapper.Map<IEnumerable<UserForPreviewDto>>(users);
             foreach (var user in usersToReturn)
+            {
                 user.IsInvited = await _dctRepository.IsInvited(user.Id);
+                user.InvitedYou = await _dctRepository.Inviting(user.Id);
+            }
 
             return Ok(usersToReturn);
         }
@@ -69,7 +77,7 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpPost("InviteUser")]
         public async Task<IActionResult> InviteUser(UserForPreviewDto userForPreviewDto)
         {
-            if (await _dctRepository.InviteUser(userForPreviewDto.Id))
+            if (!await _dctRepository.IsInvited(userForPreviewDto.Id) && await _dctRepository.InviteUser(userForPreviewDto.Id))
                 return Ok();
             else
                 return BadRequest();
@@ -84,27 +92,39 @@ namespace DreamsComeTrueAPI.Controllers
                 return BadRequest();
         }
 
-        [HttpPost("EditAvatar")]
-        public async Task<IActionResult> EditAvatar()
+        [HttpPut("AcceptInvite/{id}")]
+        public async Task<IActionResult> AcceptInvite(int id)
         {
-            var userFromRepo = await _dctRepository.GetCurrentUser();
-
-            var file = _httpContextAcc.HttpContext.Request.Form.Files[0];
-            if (file.Length > 0)
-            {
-                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "assets", "uploads");
-                var fileName = file.FileName.Replace(".", $"__{ userFromRepo.Id }.");
-                var filePath = Path.Combine(uploads, fileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create)) {
-                    await file.CopyToAsync(fileStream);
-                }
-                var photo = await _dctRepository.UploadPhoto(fileName, userFromRepo.Id);
-                userFromRepo.Photo = photo;
-                return Ok(_mapper.Map<UserForPreviewDto>(userFromRepo));
-            }
-
-            return BadRequest("No file uploaded.");
+            if (await _dctRepository.AcceptInvite(id))
+                return Ok();
+            else
+                return BadRequest();
         }
+
+        // [HttpPost("EditAvatar")]
+        // public async Task<IActionResult> EditAvatar()
+        // {
+        //     var userFromRepo = await _dctRepository.GetCurrentUser();
+
+        //     var file = _httpContextAcc.HttpContext.Request.Form.Files[0];
+        //     if (file.Length > 0)
+        //     {
+        //         var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "assets", "uploads");
+        //         if (!Directory.Exists(uploads))
+        //             Directory.CreateDirectory(uploads);
+                    
+        //         var fileName = file.FileName.Replace(".", $"__{ userFromRepo.Id }.");
+        //         var filePath = Path.Combine(uploads, fileName);
+        //         using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+        //             await file.CopyToAsync(fileStream);
+        //         }
+        //         var photo = await _dctRepository.UploadPhoto(fileName, userFromRepo.Id);
+        //         userFromRepo.Photo = photo;
+        //         return Ok(_mapper.Map<UserForPreviewDto>(userFromRepo));
+        //     }
+
+        //     return BadRequest("No file uploaded.");
+        // }
 
         [HttpPost("EditUser")]
         public async Task<IActionResult> EditUser(UserForEditDto user)

@@ -9,6 +9,7 @@ using DreamsComeTrueAPI.Data;
 using DreamsComeTrueAPI.Helpers;
 using DreamsComeTrueAPI.Repositories;
 using DreamsComeTrueAPI.Repositories.Interfaces;
+using DreamsComeTrueAPI.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -46,6 +47,7 @@ namespace DreamsComeTrueAPI
 
             services.BuildServiceProvider().GetService<DataContext>().Database.Migrate();
             services.AddCors();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddAutoMapper();
             services.AddHttpContextAccessor();
             services.AddScoped<ITodoRepository, TodoRepository>();

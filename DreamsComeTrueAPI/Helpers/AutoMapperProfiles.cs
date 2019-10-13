@@ -15,7 +15,7 @@ namespace DreamsComeTrueAPI.Helpers
 
             CreateMap<User, UserForPreviewDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
-                    opt.MapFrom(src => $"/assets/uploads/{ src.Photo.Url }");
+                    opt.MapFrom(src => src.Photo.Url);
                 });
             CreateMap<Category, CategoryDto>()
                 .ForMember(dest => dest.CategoryType, opt => {
@@ -43,6 +43,10 @@ namespace DreamsComeTrueAPI.Helpers
                 .ForMember(dest => dest.Done, opt => {
                     opt.MapFrom(src => src.Done.ToString("yyyy-MM-dd HH:mm"));
                 });
+
+            CreateMap<Photo, PhotoForCreationDto>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }

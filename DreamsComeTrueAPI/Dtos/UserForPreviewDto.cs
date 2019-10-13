@@ -6,5 +6,6 @@ namespace DreamsComeTrueAPI.Dtos
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
         public bool IsInvited { get; set; }
+        public bool InvitedYou { get; set; }
     }
 }

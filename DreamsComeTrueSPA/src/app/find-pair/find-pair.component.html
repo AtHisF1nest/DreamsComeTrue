@@ -8,7 +8,7 @@
               <hr class="my-4">
               <form #usersForm="ngForm" (ngSubmit)="search()">
                   <div class="form-row">
-                      <div class="form-group col-md-2">
+                      <div class="form-group col-md-3">
                           <label for="inputName">Login drugiej osoby</label>
                           <input type="text" class="form-control" [(ngModel)]="userModel.name" id="inputName" name="name" placeholder="Nazwa..">
                       </div>
@@ -25,13 +25,16 @@
         <div class="scrollable-y">
             <ul class="list-group">
                 <li *ngFor="let user of userList" class="list-group-item">
-                <span class="profile-avatar"><img src="{{user.photoUrl}}" /></span><span class="profile-info">{{user.name | titlecase}}</span> 
-                <span *ngIf="!user.isInvited" class="invite-button">
+                <span class="profile-avatar"><img src="{{user.photoUrl}}" /></span><span class="profile-info">{{user.name | titlecase}}</span>
+                <span *ngIf="!user.invitedYou && !user.isInvited" class="invite-button">
                   <button class="btn btn-info" (click)="inviteUser(user)">Zaproś</button>
                 </span>
-                <span *ngIf="user.isInvited" class="invite-button">
-                    <button class="btn btn-default" (click)="unInviteUser(user)">Anuluj zaproszenie</button>
-                  </span>
+                <span *ngIf="!user.invitedYou && user.isInvited" class="invite-button">
+                    <button class="btn btn-primary" (click)="unInviteUser(user)">Anuluj zaproszenie</button>
+                </span>
+                <span *ngIf="user.invitedYou" class="invite-button">
+                  <button class="btn btn-success" (click)="acceptInvite(user.id)">Akceptuj</button>
+              </span>
                 </li>
               </ul>
         </div>

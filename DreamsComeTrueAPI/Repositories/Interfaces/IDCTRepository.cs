@@ -18,5 +18,10 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<bool> IsInvited(int id);
         Task<bool> Exists(string login);
         Task<Photo> UploadPhoto(string fileName, int userId);
+        Task<bool> DeletePhoto(int id);
+        Task<Photo> GetPhoto(int id);
+        Task<IEnumerable<User>> GetUsersForInvite(string name);
+        Task<bool> Inviting(int id);
+        Task<bool> AcceptInvite(int id);
     }
 }

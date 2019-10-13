@@ -6,6 +6,5 @@ namespace DreamsComeTrueAPI.Dtos
     {
         public string Name { get; set; }
         public string Password { get; set; }
-        public IFormFile Avatar { get; set; }
     }
 }
