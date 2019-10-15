@@ -24,8 +24,8 @@ h5, table tr {
     color: rgba(34, 34, 34, 0.9);
 }
 
-.background-image { 
-    background: url(../../../assets/pictures/background-3.jpg) no-repeat center center fixed; 
+.background-image {
+    background: url(../../../assets/pictures/background-3.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -42,7 +42,7 @@ h5, table tr {
       margin-left: 0.5rem;
       width: 170px;
   }
-  
+
   timepicker {
       margin-top: -28px;
       margin-left: .5rem;

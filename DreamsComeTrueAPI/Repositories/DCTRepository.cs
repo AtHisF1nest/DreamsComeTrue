@@ -88,6 +88,11 @@ namespace DreamsComeTrueAPI.Repositories
                     .Where(x => !string.IsNullOrEmpty(name) && x.Login.ToLower() != _actualUserLogin.ToLower() && x.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase)).ToListAsync();
         }
 
+        public async Task<bool> HasPair(int userId)
+        {
+            return await _context.UsersPairs.AnyAsync(x => (x.User.Id == userId && x.User2 != null) || (x.User2.Id == userId && x.User != null));
+        }
+
         public async Task<IEnumerable<User>> GetUsersForInvite(string name)
         {
             var userPairs = await _context.UsersPairs.Include(x => x.User).Include(x => x.User2).Where(x => x.User == null || x.User2 == null).ToListAsync();
@@ -95,7 +100,7 @@ namespace DreamsComeTrueAPI.Repositories
             availableIds.AddRange(userPairs.Where(x => x.User2 != null).Select(x => x.User2.Id));
 
             return await _context.Users.Include(x => x.Photo)
-                    .Where(x => (string.IsNullOrEmpty(name) || (!string.IsNullOrEmpty(name) && x.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase)))
+                    .Where(x => (string.IsNullOrEmpty(name) || (!string.IsNullOrEmpty(name) && x.Login.Contains(name, StringComparison.InvariantCultureIgnoreCase)))
                                 && availableIds.Contains(x.Id) && x.Login.ToLower() != _actualUserLogin)
                     .ToListAsync();
         }
@@ -139,10 +144,10 @@ namespace DreamsComeTrueAPI.Repositories
                 pairOfActual.User = invitingUser;
             
             var pairOfInviting = await _context.UsersPairs.FirstOrDefaultAsync(x => x.User == invitingUser || x.User2 == invitingUser);
-            if(pairOfActual.User2 == null)
-                pairOfActual.User2 = actualUser;
+            if(pairOfInviting.User2 == null)
+                pairOfInviting.User2 = actualUser;
             else
-                pairOfActual.User = actualUser;
+                pairOfInviting.User = actualUser;
 
             return await SaveAll();
         }
@@ -199,6 +204,21 @@ namespace DreamsComeTrueAPI.Repositories
             var photo = await _context.Photos.FirstOrDefaultAsync(x => x.Id == id);
 
             return photo;
+        }
+
+        public async Task<bool> LeavePair()
+        {
+            var actualUser = await GetCurrentUser();
+
+            var actualPair = await _context.UsersPairs.Include(x => x.User2).FirstOrDefaultAsync(x => x.User == actualUser);
+            actualPair.User2 = null;
+
+            await SaveAll();
+
+            var otherPair = await _context.UsersPairs.FirstOrDefaultAsync(x => x.User2 == actualUser);
+            otherPair.User2 = null;
+
+            return await SaveAll();
         }
     }
 }

@@ -47,4 +47,8 @@ constructor(private http: HttpClient) { }
   acceptInvite(userId) {
     return this.http.put(this.baseUrl + 'AcceptInvite/' + userId, {});
   }
+
+  leavePair() {
+    return this.http.delete(this.baseUrl + 'LeavePair');
+  }
 }

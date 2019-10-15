@@ -9,6 +9,11 @@
     margin-left: 2rem;
 }
 
+.userList {
+  max-height: 400px;
+  overflow: auto;
+}
+
 li:hover {
     background-color: #ededed;
 }

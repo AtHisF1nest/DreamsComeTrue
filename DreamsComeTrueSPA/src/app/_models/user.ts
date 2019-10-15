@@ -6,4 +6,5 @@ export interface User {
     isInvited?: boolean;
     invitedYou?: boolean;
     avatar?: File;
+    hasPair?: boolean;
 }

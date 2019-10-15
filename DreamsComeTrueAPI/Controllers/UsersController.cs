@@ -61,7 +61,11 @@ namespace DreamsComeTrueAPI.Controllers
         [HttpGet("GetCurrentUser")]
         public async Task<IActionResult> GetCurrentUser()
         {
-            return Ok(_mapper.Map<UserForPreviewDto>(await _dctRepository.GetCurrentUser()));
+            var res = _mapper.Map<UserForPreviewDto>(await _dctRepository.GetCurrentUser());
+
+            res.HasPair = await _dctRepository.HasPair(res.Id);
+
+            return Ok(res);
         }
 
         [HttpGet("getuser/{id}")]
@@ -145,6 +149,12 @@ namespace DreamsComeTrueAPI.Controllers
                 return Ok(userFromRepo);
             else
                 return BadRequest("Coś poszło nie tak..");
+        }
+
+        [HttpDelete("LeavePair")]
+        public async Task<IActionResult> LeavePair()
+        {
+            return Ok(await _dctRepository.LeavePair());
         }
     }
 }

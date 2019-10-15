@@ -1,5 +1,5 @@
 <div class="background-image">
-  </div><div class="container mt-6">
+  </div><div class="container mt-3">
     <div class="row">
       <div class="col-md-12">
           <div class="jumbotron dark-blue">
@@ -23,9 +23,9 @@
     <div class="row mt-4">
       <div class="col-md-12">
         <div class="scrollable-y">
-            <ul class="list-group">
+            <ul class="list-group userList">
                 <li *ngFor="let user of userList" class="list-group-item">
-                <span class="profile-avatar"><img src="{{user.photoUrl}}" /></span><span class="profile-info">{{user.name | titlecase}}</span>
+                <span class="profile-avatar"><img src="{{user.photoUrl}}" /></span><span class="profile-info">{{user.login | titlecase}}</span>
                 <span *ngIf="!user.invitedYou && !user.isInvited" class="invite-button">
                   <button class="btn btn-info" (click)="inviteUser(user)">Zaproś</button>
                 </span>
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 mt-8"></div>
+      <div class="col-md-12 mt-6"></div>
     </div>
 </div>
 

@@ -16,7 +16,6 @@ export class TodoListDetailComponent implements OnInit {
   todoItem: Todo;
   historyOfTodoItem: HistoryDto[];
   doneDate: any;
-  doneTime: any;
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService, private router: Router,
     private managementService: ManagementService, private todosService: TodosService) { }
@@ -33,8 +32,10 @@ export class TodoListDetailComponent implements OnInit {
   }
 
   realizeTodo() {
-    this.doneDate.setHours(this.doneTime.getHours());
-    this.doneDate.setMinutes(this.doneTime.getMinutes());
+    if (!this.doneDate) {
+      this.alertify.error('Uzupełnij datę!');
+      return;
+    }
 
     this.todoItem.lastDone = this.doneDate;
     this.managementService.realizeTodo(this.todoItem).subscribe(() => {

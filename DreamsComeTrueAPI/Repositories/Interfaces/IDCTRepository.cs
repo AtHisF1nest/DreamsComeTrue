@@ -23,5 +23,7 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
         Task<IEnumerable<User>> GetUsersForInvite(string name);
         Task<bool> Inviting(int id);
         Task<bool> AcceptInvite(int id);
+        Task<bool> HasPair(int userId);
+        Task<bool> LeavePair();
     }
 }

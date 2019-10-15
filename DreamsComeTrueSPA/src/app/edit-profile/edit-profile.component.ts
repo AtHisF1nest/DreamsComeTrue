@@ -14,12 +14,16 @@ import { PhotoService } from '../_services/photo.service';
 export class EditProfileComponent implements OnInit {
 
   model: User = {};
+  currentUser: User;
   file: File;
 
   constructor(public authService: AuthService, private userService: UserService, private alertifyService: AlertifyService,
     private router: Router, private photoService: PhotoService) { }
 
   ngOnInit() {
+    this.userService.getCurrentUser().subscribe(res => {
+      this.currentUser = res;
+    });
   }
 
   holdAvatar(files: FileList) {
@@ -49,6 +53,15 @@ export class EditProfileComponent implements OnInit {
     } else {
       this.alertifyService.error('Brak uzupełnionej nazwy');
     }
+  }
+
+  leavePair() {
+    this.userService.leavePair().subscribe(res => {
+      this.alertifyService.success('Jeżeli byłeś w parze, to już nie jesteś');
+      window.location.reload();
+    }, error => {
+      this.alertifyService.error('Coś poszło nie tak lub nie byłeś w parze');
+    });
   }
 
 }

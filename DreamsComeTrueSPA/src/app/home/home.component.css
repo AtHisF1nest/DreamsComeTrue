@@ -4,7 +4,7 @@ div.container {
 }
 
 .background-image {
-    width: 1920px;
+    /*width: 1920px;*/
     height: 690px;
     background: url(../../assets/pictures/wallpaper-6..jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -12,6 +12,7 @@ div.container {
     -o-background-size: cover;
     background-size: cover;
     overflow: hidden;
+    text-align: center;
   }
 
   @media only screen and (max-width: 600px) {

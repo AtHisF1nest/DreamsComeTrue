@@ -41,7 +41,7 @@ namespace DreamsComeTrueAPI.Helpers
                 });
              CreateMap<History, HistoryDto>()
                 .ForMember(dest => dest.Done, opt => {
-                    opt.MapFrom(src => src.Done.ToString("yyyy-MM-dd HH:mm"));
+                    opt.MapFrom(src => src.Done.ToString("yyyy-MM-dd"));
                 });
 
             CreateMap<Photo, PhotoForCreationDto>();

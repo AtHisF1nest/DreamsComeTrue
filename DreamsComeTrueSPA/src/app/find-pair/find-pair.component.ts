@@ -19,6 +19,12 @@ export class FindPairComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getCurrentUser().subscribe(res => {
+      if (res.hasPair) {
+        this.router.navigate(['/nasze-cele']);
+        this.alertify.message('Masz już swoją parę!');
+      }
+    });
     this.route.data.subscribe(data => {
       this.userList = data['userList'];
       if (this.userList.length === 0) {

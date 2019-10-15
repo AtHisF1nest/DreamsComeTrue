@@ -5,7 +5,7 @@
       <p class="lead">Możesz zmienić swój nick lub avatar!</p>
       <hr class="my-2">
       <p>Wystarczy że załadujesz nowy plik</p>
-      <div class="form-group col-4">
+      <div class="form-group col-md-6 col-sm-12">
         <label for="file">Avatar</label>
         <input type="file"
           class="form-control" name="file" (change)="this.holdAvatar($event.target.files)" id="file" aria-describedby="fileId" placeholder="Twój avatar">
@@ -16,7 +16,7 @@
       </p>
       <hr class="my-2">
       <p>Lub wpiszesz nową nazwę</p>
-      <div class="form-group col-4">
+      <div class="form-group col-md-6 col-sm-12">
           <label for="name">Twoja nazwa</label>
           <input type="text" class="form-control" [(ngModel)]="model.name" name="name" id="name" aria-describedby="NazwaName"
           [placeholder]="authService.decodedToken?.unique_name | titlecase" [value]="authService.decodedToken?.unique_name | titlecase">
@@ -24,6 +24,17 @@
         </div>
       <p class="lead">
         <button class="btn btn-primary" role="button" (click)="this.editUserName()">Zmień nazwę</button>
+      </p>
+      <hr class="my-2">
+      <p>A tutaj możesz odejść od swojej pary</p>
+      <div class="form-group col-md-6 col-sm-12">
+          <label *ngIf="currentUser?.hasPair" for="name">Czy na pewno chcesz odejść?</label>
+      </div>
+      <p *ngIf="currentUser?.hasPair" class="lead">
+        <button class="btn btn-danger" role="button" (click)="this.leavePair()">TAK, CHCĘ</button>
+      </p>
+      <p *ngIf="!currentUser?.hasPair">
+        <b>Nie posiadasz pary!</b>
       </p>
     </div>
   </div>
