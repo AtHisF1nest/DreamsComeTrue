@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TodosService } from '../../_services/todos.service';
 import { Todo } from '../../_models/todo';
 import { AlertifyService } from '../../_services/alertify.service';
@@ -11,6 +11,8 @@ import { Category } from '../../_models/category';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
+  @Input()
+  minify: boolean;
 
   todoList: Todo[];
 
@@ -22,16 +24,21 @@ export class TodoListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.loadCategories();
+    if (!this.minify) {
+      this.loadCategories();
 
-    this.route.data.subscribe(data => {
-      this.todoList = data['todoList'];
-      if (!this.todoList)  {
-        this.alertify.error('Wystąpił problem przy pobieraniu danych.');
-        this.router.navigate(['']);
-      }
-    });
-
+      this.route.data.subscribe(data => {
+        this.todoList = data['todoList'];
+        if (!this.todoList)  {
+          this.alertify.error('Wystąpił problem przy pobieraniu danych.');
+          this.router.navigate(['']);
+        }
+      });
+    } else {
+      this.todosService.getItems().subscribe(res => {
+        this.todoList = res;
+      });
+    }
   }
 
   loadCategories() {

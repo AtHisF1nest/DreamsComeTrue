@@ -1,0 +1,30 @@
+h3 {
+  margin: 0 0 10px;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.todo-list {
+  max-height: 300px;
+  overflow: auto;
+  list-style: none;
+}
+
+.todo-item {
+  padding: 5px;
+  transition: .3s all;
+}
+
+.todo-item:hover {
+  cursor: pointer;
+  color: black;
+  background-color: #ccc;
+}
+
+.todo-item.active {
+  color: white;
+  background-color: #666;
+}

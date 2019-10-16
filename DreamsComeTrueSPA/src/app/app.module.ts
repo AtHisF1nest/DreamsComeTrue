@@ -6,6 +6,8 @@ import { BsDropdownModule, BsDatepickerModule, TimepickerModule } from 'ngx-boot
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
@@ -91,6 +93,10 @@ export function tokenGetter() {
       FormsModule,
       BrowserModule,
       BrowserAnimationsModule,
+      CalendarModule.forRoot({
+        provide: DateAdapter,
+        useFactory: adapterFactory
+      }),
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TimepickerModule.forRoot(),
