@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DreamsComeTrueAPI.Data;
+using DreamsComeTrueAPI.Dtos;
 using DreamsComeTrueAPI.Models;
 using DreamsComeTrueAPI.Models.Enums;
 using DreamsComeTrueAPI.Repositories.Interfaces;
@@ -189,6 +190,49 @@ namespace DreamsComeTrueAPI.Repositories
                 return await _context.TodoItems.Include(x => x.Author).Include(x => x.Author.Photo).Include(x => x.UsersPair)
                 .Where(x => (x.IsOneTime && x.LastDone != null) && x.CategoryType == CategoryType.NaDzis && x.UsersPair.RelationshipType == RelationshipType.SeriousRelationship 
                         && (x.UsersPair.User.Login == _actualUserLogin || x.UsersPair.User2.Login == _actualUserLogin)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Event>> GetEvents()
+        {
+            var actualUser = await _context.Users.FirstOrDefaultAsync(x => x.Login == _actualUserLogin);
+            var actualPair = await _context.UsersPairs.FirstOrDefaultAsync(x => x.User == actualUser);
+            var anotherPair = await _context.UsersPairs.FirstOrDefaultAsync(x => x.User2 == actualUser);
+
+            return await _context.Events.Include(x => x.TodoItem)
+                            .Where(x => (x.TodoItem.UsersPairId == actualPair.Id || (anotherPair == null || x.TodoItem.UsersPairId == anotherPair.Id)) &&
+                                         x.PlannedFor >= DateTime.Now.AddMonths(-3))
+                            .ToListAsync();
+        }
+
+        public async Task<int> AddEvent(Event eventItem)
+        {
+            var added = await _context.Events.AddAsync(eventItem);
+
+            if (await _context.SaveChangesAsync() > 0)
+                return added.Entity.Id;
+            
+            return 0;
+        }
+
+        public async Task<bool> DeleteEvent(int eventItemId)
+        {
+            var toDelete = await _context.Events.FirstOrDefaultAsync(x => x.Id == eventItemId);
+
+            if (toDelete != null)
+            {
+                _context.Events.Remove(toDelete);
+                return await _context.SaveChangesAsync() > 0;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateEvent(Event eventItem)
+        {
+            var toUpdate = await _context.Events.FirstOrDefaultAsync(x => x.Id == eventItem.Id);
+            toUpdate.PlannedFor = eventItem.PlannedFor;
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

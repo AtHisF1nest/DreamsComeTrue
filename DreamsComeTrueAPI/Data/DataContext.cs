@@ -16,6 +16,7 @@ namespace DreamsComeTrueAPI.Data
         public DbSet<ManagementType> ManagementTypes { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<UserInvitation> UserInvitations { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

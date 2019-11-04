@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Todo } from '../_models/todo';
 import { Category } from '../_models/category';
 import { HistoryDto } from '../_models/historyDto';
+import { EventItem } from '../_models/eventItem';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +71,22 @@ export class TodosService {
 
   getDoneItems(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.baseUrl + 'GetDoneTodoItems');
+  }
+
+  getEvents(): Observable<EventItem[]> {
+    return this.http.get<EventItem[]>(this.baseUrl + 'GetEvents');
+  }
+
+  addEvent(eventItem: EventItem): any {
+    return this.http.post(this.baseUrl + 'AddEvent', eventItem);
+  }
+
+  modifyEvent(eventItem: EventItem) {
+    return this.http.put(this.baseUrl + 'UpdateEvent', eventItem);
+  }
+
+  deleteEvent(eventItemId: number) {
+    return this.http.delete(this.baseUrl + 'DeleteEvent/' + eventItemId);
   }
 
 }

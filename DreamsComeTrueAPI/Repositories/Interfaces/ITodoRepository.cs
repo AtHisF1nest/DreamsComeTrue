@@ -23,5 +23,9 @@ namespace DreamsComeTrueAPI.Repositories.Interfaces
          Task<bool> RealizeTodo(int id, string date);
          Task<bool> DeleteHistory(int id);
          Task<IEnumerable<TodoItem>> GetDoneTodoItems();
+         Task<IEnumerable<Event>> GetEvents();
+        Task<int> AddEvent(Event eventItem);
+        Task<bool> DeleteEvent(int eventId);
+        Task<bool> UpdateEvent(Event eventItem);
     }
 }

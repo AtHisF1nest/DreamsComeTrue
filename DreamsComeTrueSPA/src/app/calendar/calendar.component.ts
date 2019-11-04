@@ -24,6 +24,7 @@ import {
 } from 'angular-calendar';
 import { Todo } from '../_models/todo';
 import { TodosService } from '../_services/todos.service';
+import { EventItem } from '../_models/eventItem';
 
 const colors: any = {
   red: {
@@ -48,6 +49,7 @@ const colors: any = {
 export class CalendarComponent implements OnInit {
 
   todoList: Todo[] = [];
+  eventList: EventItem[] = [];
   activeTodo: Todo;
 
   view: CalendarView = CalendarView.Month;
@@ -68,21 +70,7 @@ export class CalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen = true;
 
@@ -91,6 +79,13 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     this.todosService.getItems().subscribe(res => {
       this.todoList = res;
+    });
+
+    this.todosService.getEvents().subscribe(res => {
+      this.eventList = res;
+      this.eventList.forEach(event => {
+        this.addEvent(event.id, event.todoItem.objective, event.plannedFor);
+      });
     });
   }
 
@@ -128,6 +123,27 @@ export class CalendarComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     console.log(action, event);
+    if (action === 'Deleted') {
+      this.deleteEvent(event);
+    } else if (action === 'Dropped or resized') {
+      this.updateEvent(event);
+    }
+  }
+
+  updateEvent(event: CalendarEvent): void {
+    const currEvent = this.events.find(x => x.id === event.id);
+    const eventToModify: EventItem = {
+      id: +event.id,
+      plannedFor: currEvent.end,
+      todoItemId: 0,
+      todoItem: null
+    };
+
+    this.todosService.modifyEvent(eventToModify).subscribe(res => {
+
+    }, error => {
+      console.log(error);
+    });
   }
 
   todoItemClick(todoItem: Todo) {
@@ -137,32 +153,55 @@ export class CalendarComponent implements OnInit {
   }
 
   addTodoEvent() {
-    this.addEvent(this.activeTodo.id, this.activeTodo.objective, this.viewDate);
+    const calEvent = this.addEvent(this.activeTodo.id, this.activeTodo.objective, this.viewDate);
+    const eventToAdd: EventItem = {
+      id: 0,
+      plannedFor: this.viewDate,
+      todoItem: this.activeTodo,
+      todoItemId: this.activeTodo.id
+    };
+    this.todosService.addEvent(eventToAdd).subscribe(res => {
+      calEvent.id = res.id;
+      console.log(calEvent);
+      console.log(this.events);
+    }, error => {
+      console.log(error);
+    });
   }
 
-  addEvent(id, title, date): void {
+  addEvent(id, title, date): CalendarEvent {
+    const calEvent = this.generateEvent(id, title, date);
     this.events = [
       ...this.events,
-      this.generateEvent(id, title, date)
+      calEvent
     ];
+
+    return calEvent;
   }
 
   generateEvent(id: number, title: string, date: Date): CalendarEvent {
     return {
+      id: id,
       title: id + '. ' + title,
       start: startOfDay(date),
       end: endOfDay(date),
       color: colors.blue,
-      draggable: true,
+      actions: this.actions,
+      allDay: true,
       resizable: {
         beforeStart: true,
         afterEnd: true
-      }
+      },
+      draggable: true
     };
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
+    this.todosService.deleteEvent(+eventToDelete.id).subscribe(x => {
+
+    }, error => {
+      console.log(error);
+    });
   }
 
   setView(view: CalendarView) {

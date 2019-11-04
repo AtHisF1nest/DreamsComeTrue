@@ -47,6 +47,8 @@ namespace DreamsComeTrueAPI.Helpers
             CreateMap<Photo, PhotoForCreationDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<Event, EventDto>();
+            CreateMap<TodoItemDto, TodoItem>();
         }
     }
 }

@@ -186,5 +186,42 @@ namespace DreamsComeTrueAPI.Controllers
             return res;
         }
 
+        [HttpGet("GetEvents")]
+        public async Task<IEnumerable<EventDto>> GetEvents()
+        {
+            var events = await _todoRepository.GetEvents();
+
+            var res = _mapper.Map<IEnumerable<EventDto>>(events);
+
+            return res;
+        }
+
+        [HttpPost("AddEvent")]
+        public async Task<EventDto> AddEvent([FromBody] EventToAddDto eventItem)
+        {
+            var eventToAdd = new Event();
+            eventToAdd.PlannedFor = eventItem.PlannedFor;
+            eventToAdd.TodoItemId = eventItem.TodoItem.Id;
+            var addedId = await _todoRepository.AddEvent(eventToAdd);
+
+            return new EventDto() { Id = addedId };
+        }
+
+        [HttpDelete("DeleteEvent/{eventId}")]
+        public async Task<bool> DeleteEvent(int eventId)
+        {
+            return await _todoRepository.DeleteEvent(eventId);
+        }
+
+        [HttpPut("UpdateEvent")]
+        public async Task<bool> UpdateEvent([FromBody] EventToModifyDto eventItem)
+        {
+            var eventToModify = new Event();
+            eventToModify.Id = eventItem.Id;
+            eventToModify.PlannedFor = eventItem.PlannedFor;
+
+            return await _todoRepository.UpdateEvent(eventToModify);
+        }
+
     }
 }
